@@ -4,12 +4,16 @@ OpenChatWidget lets you embed a ChatGPT-like AI chat experience into your websit
 
 If you want to bring agentic chat to your product, this is it. Get started with only a few lines of code. 
 
-### 💡 Example use cases
+### Example use cases
 
-- **AI customer service agent:** a free alternative to tools like Intercom Fin AI or Tidio chat
-- **Knowledge base and documentation search:** help users answer questions about your docs or internal knowledge base
-- **In-product onboarding:** add a chat assistant to guide users through your dashboard or product
-- **Bookings and task automation:** schedule meetings, track orders, book appointments, and more
+- **AI customer service agent**
+  Help customers get instant answers, resolve common support questions, and reduce ticket volume. Open source free alternative to Intercom's Fin Agent.
+- **Knowledge base and documentation search**
+  Let users ask questions about your docs, product guides, or internal knowledge base in natural language.
+- **In-product onboarding**
+  Add a chat assistant that helps users navigate your dashboard, learn features, and get unstuck faster.
+- **Bookings and task automation**
+  Power flows like scheduling meetings, tracking orders, booking appointments, and triggering simple actions.
 
 ## 🚀 Quick Start
 
@@ -47,9 +51,12 @@ For a working Express backend example, see [`examples/vite-express-app/server`](
 | Feature | Details |
 | --- | --- |
 | Embeddable widget | Add a bottom-right AI chat widget to any React / Next app with a single component. |
-| Streaming responses | Uses the Vercel AI SDK client flow for streamed assistant replies. |
-| Build your own agent | Point the widget at any Node backend that implements `POST /api/chat`. |
-| Minimal API surface | One required prop today: `url`. |
+| Build your own agent | Create your own AI agent hosted on any Node backend framework |
+| 🚧 Support for voice and image uploading |  Be able to talk to engage and upload photos in the chat widget |
+| 🚧 Support for MCP and MCP apps | Connect to MCP servers and render UI from MCP apps  |
+| 🚧 Client side tools |  Be able to call tools on the client side |
+
+<img src="public/product-demo-filler.png" alt="OpenChatWidget product demo" width="100%" />
 
 ## 📦 Examples
 
@@ -58,13 +65,7 @@ For a working Express backend example, see [`examples/vite-express-app/server`](
 
 ## 🛣️ Roadmap
 
-- [ ] Tighten installation docs and add framework-specific setup guides
-- [ ] Add more backend examples for common Node stacks
-- [ ] Add basic theming and branding configuration
-- [ ] Add conversation persistence examples
-- [ ] Support richer message types beyond plain text
-- [ ] Add production deployment guides
-
+TBD
 ## 🤝 Community
 
 OpenChatWidget is early and intentionally focused.
