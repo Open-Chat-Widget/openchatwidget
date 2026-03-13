@@ -170,7 +170,7 @@ export function Composer({
             opacity: 0.5,
           }}
         />
-        <span>Powered by HelpfulChat</span>
+        <span>Powered by Open Chat Widget</span>
       </a>
     </form>
   );

@@ -1,6 +1,7 @@
 import { OpenChatWidget } from "openchatwidget";
 
-const chatApiUrl = import.meta.env.VITE_CHAT_API_URL ?? "http://localhost:8787";
+const chatApiUrl =
+  import.meta.env.VITE_CHAT_API_URL ?? "http://localhost:8787/api/chat";
 
 export default function App() {
   return (
@@ -15,7 +16,7 @@ export default function App() {
           Frontend: <code>http://localhost:5173</code>
         </p>
         <p>
-          Agent API: <code>{chatApiUrl}/api/chat</code>
+          Agent API: <code>{chatApiUrl}</code>
         </p>
       </section>
       <OpenChatWidget url={chatApiUrl} />

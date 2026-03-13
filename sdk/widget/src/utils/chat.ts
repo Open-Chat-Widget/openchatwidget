@@ -27,17 +27,3 @@ export function extractMessageText(message: {
 
   return textChunks.join("");
 }
-
-export function normalizeChatApiUrl(url: string) {
-  const trimmed = url.trim();
-  if (!trimmed) {
-    return "/api/chat";
-  }
-
-  const normalized = trimmed.replace(/\/+$/, "");
-  if (/\/api\/chat$/.test(normalized)) {
-    return normalized;
-  }
-
-  return `${normalized}/api/chat`;
-}

@@ -8,7 +8,7 @@ import { Composer } from "./components/Composer";
 import { MarkdownMessage } from "./components/MarkdownMessage";
 import { EmptyState } from "./components/EmptyState";
 import { HELPFUL_CHAT_LOGO_DATA_URI, buildOpenChatWidgetThemeCss } from "./theme";
-import { extractMessageText, normalizeChatApiUrl } from "./utils/chat";
+import { extractMessageText } from "./utils/chat";
 
 const MOBILE_BREAKPOINT_PX = 768;
 const DEFAULT_TITLE = "Helpful Chat";
@@ -45,13 +45,12 @@ export function OpenChatWidget({ url }: OpenChatWidgetProps) {
   const panelRef = React.useRef<HTMLElement | null>(null);
   const toggleRef = React.useRef<HTMLButtonElement | null>(null);
 
-  const apiUrl = React.useMemo(() => normalizeChatApiUrl(url), [url]);
   const transport = React.useMemo(
     () =>
       new DefaultChatTransport({
-        api: apiUrl,
+        api: url,
       }),
-    [apiUrl],
+    [url],
   );
   const themeCss = React.useMemo(() => buildOpenChatWidgetThemeCss(), []);
 

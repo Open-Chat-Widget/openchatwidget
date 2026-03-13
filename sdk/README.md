@@ -21,12 +21,11 @@ npm install
 import { OpenChatWidget } from "openchatwidget";
 
 export default function App() {
-  return <OpenChatWidget url={"http://localhost:3001"} />;
+  return <OpenChatWidget url={"http://localhost:3001/api/chat"} />;
 }
 ```
 
-`url` is the only configurable React prop and should point to your backend root URL.
-The widget sends requests to `${url}/api/chat` (or uses `url` as-is when it already ends in `/api/chat`).
+`url` is the only configurable React prop and should point to your exact chat endpoint.
 
 ## Example backend and app
 

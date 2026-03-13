@@ -1,22 +1,26 @@
 <img src="public/open-chat-widget-banner.png" alt="OpenChatWidget banner" width="100%" />
 
-OpenChatWidget lets you embed a ChatGPT-like AI chat experience into your website. Build your own AI agent and customize the chat UI. You own the entire experience. It's free, open source, and self hosted. You own the entire stack. 
+OpenChatWidget lets you embed a ChatGPT-like AI chat widget into your website. Connect the widget to any AI agent you build, any LLM model. It's free, open source, and self hosted. You own the entire stack. 
 
 If you want to bring agentic chat to your product, this is it. Get started with only a few lines of code. 
 
 ### Example use cases
 
-- **AI customer service agent**
-  Help customers get instant answers, resolve common support questions, and reduce ticket volume. Open source free alternative to Intercom's Fin Agent.
-- **Knowledge base and documentation search**
+- **AI customer service agent** - 
+  Help customers get instant answers, resolve common support questions, and reduce ticket volume. Open source free alternative to Intercom's Fin Agent.\
+
+- **Knowledge base and documentation search** -
   Let users ask questions about your docs, product guides, or internal knowledge base in natural language.
-- **In-product onboarding**
+
+- **In-product onboarding** -
   Add a chat assistant that helps users navigate your dashboard, learn features, and get unstuck faster.
-- **Bookings and task automation**
+
+- **Bookings and task automation** -
   Power flows like scheduling meetings, tracking orders, booking appointments, and triggering simple actions.
 
 ## 🚀 Quick Start
 
+### 1. Install the chat widget 
 Install the widget in your React app:
 
 ```bash
@@ -32,31 +36,66 @@ export default function App() {
   return (
     <>
       <main>
-        <h1>Your Landing Page</h1>
         ...
       </main>
 
-      <OpenChatWidget url="<YOUR_AGENT_STREAMING_ENDPOINT>" />
+      <OpenChatWidget url="<YOUR_AGENT_STREAMING_ENDPOINT>" /> // Fill out streaming endpoint in Step 3.
     </>
   );
 }
 ```
 
+### 2. Build your first agent
+
 The next step is to set up your AI agent backend. Create an API endpoint with your favorite Node backend framework, such as Express or Hono.
 
-For a working Express backend example, see [`examples/vite-express-app/server`](./examples/vite-express-app/server/index.ts).
+Here's a simple text stream agent: 
+```tsx
+app.use(express.json());
+app.post("/api/chat", async (request, response) => {
+  const { messages } = request.body as { messages: UIMessage[] };
+
+  const openai = createOpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+
+  const result = streamText({
+    model: openai("gpt-4o-mini"),
+    system: "You are the OpenChatWidget example assistant. Keep answers concise and useful.",
+    messages: await convertToModelMessages(messages),
+  });
+
+  result.pipeUIMessageStreamToResponse(response);
+});
+```
+
+### 3. Connect the widget to the agent. 
+
+Grab the exact URL of your agent endpoint and paste it into `<YOUR_AGENT_STREAMING_ENDPOINT>`, for example `http://localhost:8787/api/chat`. Make sure to start both your front end and Node backend. You should be able to start chatting.
+
+For a working basic example, check out [`examples/vite-express-app`](./examples/vite-express-app/).
 
 ## ✨ Features
 
 | Feature | Details |
 | --- | --- |
 | Embeddable widget | Add a bottom-right AI chat widget to any React / Next app with a single component. |
-| Build your own agent | Create your own AI agent hosted on any Node backend framework |
+| Custom AI agent | Create your own AI agent hosted on any Node backend framework |
+| 🚧 Live chat |  Chat with users in real time, just like Intercom but free |
 | 🚧 Support for voice and image uploading |  Be able to talk to engage and upload photos in the chat widget |
 | 🚧 Support for MCP and MCP apps | Connect to MCP servers and render UI from MCP apps  |
-| 🚧 Client side tools |  Be able to call tools on the client side |
+| 🚧 Client side tools |  Be able to call tools on the UI client side, WebMCP style. |
 
 <img src="public/product-demo-filler.png" alt="OpenChatWidget product demo" width="100%" />
+
+## Stack 
+Open Chat Widget is a simple UI wrapper around [Vercel AI-SDK](https://ai-sdk.dev/docs/introduction). When building your backend AI agent, all capabilities from AI-SDK are compatible with Open Chat Widget. 
+
+- Front end is written in React / Typescript 
+- Agentic chat powered by Vercel AI SDK. 
+
+### Why AI-SDK? 
+We want to be opiniated on how 
 
 ## 📦 Examples
 
@@ -68,13 +107,8 @@ For a working Express backend example, see [`examples/vite-express-app/server`](
 TBD
 ## 🤝 Community
 
-OpenChatWidget is early and intentionally focused.
-
-If you want to help shape it:
-
-- open an issue: [GitHub Issues](https://github.com/Open-Chat-Widget/openchatwidget/issues)
-- open a pull request: [GitHub Pull Requests](https://github.com/Open-Chat-Widget/openchatwidget/pulls)
-- read the guide: [CONTRIBUTING.md](./CONTRIBUTING.md)
+- [Discord](https://discord.gg/jA4vcJKECy)
+- [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## 📄 License
 
