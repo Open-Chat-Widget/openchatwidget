@@ -1,8 +1,22 @@
-<img src="public/open-chat-widget-banner.png" alt="OpenChatWidget banner" width="100%" />
+<div align="center">
+  <img src="public/open-chat-widget-banner.png" alt="OpenChatWidget banner" width="100%" />
 
-OpenChatWidget lets you embed a ChatGPT-like AI chat widget into your website. Connect the widget to any AI agent you build, any LLM model. It's free, open source, and self hosted. You own the entire stack. 
+  <p>
+    <a href="https://www.npmjs.com/package/@openchatwidget/sdk">
+      <img src="https://img.shields.io/npm/v/%40openchatwidget%2Fsdk?style=for-the-badge&color=blue" alt="npm version" />
+    </a>
+    <a href="./LICENSE">
+      <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="License: MIT" />
+    </a>
+    <a href="https://discord.gg/jA4vcJKECy">
+      <img src="https://img.shields.io/badge/Discord-Join%20Server-5865F2.svg?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" />
+    </a>
+  </p>
+</div>
 
-If you want to bring agentic chat to your product, this is it. Get started with only a few lines of code. 
+Open Chat Widget lets you embed a ChatGPT-like AI chat widget into your website. Connect the widget to custom AI agents you build, with any LLM model. Open Chat Widget handles text streaming, tool calling, and a production ready chat UI with minimal set up. Built on Vercel AI SDK. 
+
+If you want to bring agentic chat to your product, this is it. Get started with a few lines of code.
 
 ### Example use cases
 
@@ -104,11 +118,13 @@ We want to be opiniated on how
 
 ## 🛣️ Roadmap
 
-TBD
+[See ROADMAP.md](./ROADMAP.md)
 ## 🤝 Community
 
 - [Discord](https://discord.gg/jA4vcJKECy)
 - [CONTRIBUTING.md](CONTRIBUTING.md)
+
+If you have any questions, also feel free to email matt@openchatwidget.com
 
 ## 📄 License
 
