@@ -1,18 +1,24 @@
 import * as React from "react";
+import { HELPFUL_CHAT_LOGO_DATA_URI } from "../theme";
 
 type WidgetComposerProps = {
   input: string;
   setInput: (nextInput: string) => void;
+  placeholder: string;
   isGenerating: boolean;
   canSend: boolean;
   isMobileViewport: boolean;
+  isInputFocused: boolean;
   textareaRef: React.RefObject<HTMLTextAreaElement | null>;
   onSubmit: (event: React.FormEvent) => void;
   onStop: () => void;
   onInputKeyDown: (event: React.KeyboardEvent<HTMLTextAreaElement>) => void;
   onFocus: () => void;
   onBlur: () => void;
+  logoSrc?: string;
 };
+
+const POWERED_BY_LOGO_SRC = HELPFUL_CHAT_LOGO_DATA_URI;
 
 function SendIcon() {
   return (
@@ -53,15 +59,18 @@ function StopIcon() {
 export function Composer({
   input,
   setInput,
+  placeholder,
   isGenerating,
   canSend,
   isMobileViewport,
+  isInputFocused,
   textareaRef,
   onSubmit,
   onStop,
   onInputKeyDown,
   onFocus,
   onBlur,
+  logoSrc = POWERED_BY_LOGO_SRC,
 }: WidgetComposerProps) {
   return (
     <form
@@ -80,14 +89,14 @@ export function Composer({
         style={{
           flex: 1,
           borderRadius: "9999px",
-          border: isGenerating ? "1px solid #cbd5e1" : "1px solid #e5e7eb",
+          border: isInputFocused ? "1px solid #cbd5e1" : "1px solid #e5e7eb",
           display: "flex",
           alignItems: "center",
           gap: "8px",
           padding: isMobileViewport ? "4px 6px 4px 16px" : "4px 6px 4px 14px",
           background: "#ffffff",
           minHeight: isMobileViewport ? "52px" : "44px",
-          boxShadow: isGenerating ? "0 0 0 3px rgba(15, 23, 42, 0.06)" : "none",
+          boxShadow: isInputFocused ? "0 0 0 3px rgba(15, 23, 42, 0.06)" : "none",
           transition: "box-shadow 120ms ease, border-color 120ms ease",
         }}
       >
@@ -98,7 +107,7 @@ export function Composer({
           onKeyDown={onInputKeyDown}
           onFocus={onFocus}
           onBlur={onBlur}
-          placeholder="Ask anything..."
+          placeholder={placeholder}
           rows={1}
           enterKeyHint="send"
           style={{
@@ -134,6 +143,35 @@ export function Composer({
           {isGenerating ? <StopIcon /> : <SendIcon />}
         </button>
       </div>
+      <a
+        href="https://helpfulchatapp.com"
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "5px",
+          color: "#9ca3af",
+          fontSize: "10px",
+          lineHeight: 1.2,
+          userSelect: "none",
+          textDecoration: "none",
+          width: "100%",
+        }}
+      >
+        <img
+          src={logoSrc}
+          alt=""
+          width={10}
+          height={10}
+          style={{
+            display: "block",
+            opacity: 0.5,
+          }}
+        />
+        <span>Powered by HelpfulChat</span>
+      </a>
     </form>
   );
 }

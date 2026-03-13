@@ -1,4 +1,5 @@
 import * as React from "react";
+import { HELPFUL_CHAT_LOGO_DATA_URI } from "../theme";
 
 type OpenChatWidgetToggleProps = {
   isOpen: boolean;
@@ -8,8 +9,7 @@ type OpenChatWidgetToggleProps = {
   unreadCount?: number;
 };
 
-const DEFAULT_LOGO_SRC =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%2300E46A'/%3E%3Ctext x='50' y='64' text-anchor='middle' font-family='Arial' font-size='56' font-weight='700' fill='white'%3EOC%3C/text%3E%3C/svg%3E";
+const DEFAULT_LOGO_SRC = HELPFUL_CHAT_LOGO_DATA_URI;
 const BUTTON_SIZE_PX = 68;
 const ICON_SIZE_PX = 54;
 const CLOSE_ICON_SIZE_PX = 22;
@@ -55,7 +55,7 @@ export const ChatToggleButton = React.forwardRef<
   const iconSize = isMobile ? MOBILE_ICON_SIZE_PX : ICON_SIZE_PX;
   const closeIconSize = isMobile ? MOBILE_CLOSE_ICON_SIZE_PX : CLOSE_ICON_SIZE_PX;
   const offset = isMobile ? "12px" : "16px";
-  const showUnread = !isOpen && unreadCount > 0;
+  const hasUnread = !isOpen && unreadCount > 0;
   const unreadLabel = unreadCount > 99 ? "99+" : String(unreadCount);
 
   return (
@@ -73,7 +73,7 @@ export const ChatToggleButton = React.forwardRef<
         width: `${buttonSize}px`,
         height: `${buttonSize}px`,
         padding: "0",
-        background: isOpen ? "#111827" : "#00e46a",
+        background: isOpen ? "#111827" : "#00E46A",
         color: "#ffffff",
         cursor: "pointer",
         zIndex: 1000,
@@ -82,9 +82,9 @@ export const ChatToggleButton = React.forwardRef<
         justifyContent: "center",
       }}
     >
-      {showUnread ? (
+      {hasUnread ? (
         <span
-          aria-label={`${unreadCount} unread message${unreadCount === 1 ? "" : "s"}`}
+          aria-label={`${unreadCount} unread support message${unreadCount === 1 ? "" : "s"}`}
           style={{
             position: "absolute",
             top: isMobile ? "-2px" : "0px",

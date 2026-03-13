@@ -6,49 +6,39 @@ import { WidgetPanel } from "./components/WidgetPanel";
 import { MessageList } from "./components/MessageList";
 import { Composer } from "./components/Composer";
 import { MarkdownMessage } from "./components/MarkdownMessage";
+import { EmptyState } from "./components/EmptyState";
+import { HELPFUL_CHAT_LOGO_DATA_URI, buildOpenChatWidgetThemeCss } from "./theme";
 import { extractMessageText, normalizeChatApiUrl } from "./utils/chat";
 
 const MOBILE_BREAKPOINT_PX = 768;
+const DEFAULT_TITLE = "Helpful Chat";
+const DEFAULT_PLACEHOLDER = "Ask a question...";
 
 export type OpenChatWidgetProps = {
   url: string;
 };
 
-const WIDGET_STYLE = `
-[data-openchatwidget-root],
-[data-openchatwidget-root] *,
-[data-openchatwidget-root] *::before,
-[data-openchatwidget-root] *::after {
-  box-sizing: border-box;
-}
-
-[data-openchatwidget-root] {
-  font-size: 16px;
-  color: #1b1d22;
-  line-height: 1.4;
-  font-family: "Segoe UI", "Avenir Next", sans-serif;
-}
-
-@keyframes openchatwidgetDotPulse {
-  0%, 100% {
-    opacity: 0.2;
-    transform: translateY(0);
-  }
-  50% {
-    opacity: 1;
-    transform: translateY(-2px);
-  }
-}
-`;
-
 export function OpenChatWidget({ url }: OpenChatWidgetProps) {
   const [input, setInput] = React.useState("");
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isInputFocused, setIsInputFocused] = React.useState(false);
   const [isMobileViewport, setIsMobileViewport] = React.useState(() => {
     if (typeof window === "undefined") {
       return false;
     }
     return window.innerWidth <= MOBILE_BREAKPOINT_PX;
+  });
+  const [visualViewportHeight, setVisualViewportHeight] = React.useState(() => {
+    if (typeof window === "undefined") {
+      return 0;
+    }
+    return window.visualViewport?.height ?? window.innerHeight;
+  });
+  const [visualViewportOffsetTop, setVisualViewportOffsetTop] = React.useState(() => {
+    if (typeof window === "undefined") {
+      return 0;
+    }
+    return window.visualViewport?.offsetTop ?? 0;
   });
   const messageListRef = React.useRef<HTMLDivElement | null>(null);
   const textareaRef = React.useRef<HTMLTextAreaElement | null>(null);
@@ -63,6 +53,7 @@ export function OpenChatWidget({ url }: OpenChatWidgetProps) {
       }),
     [apiUrl],
   );
+  const themeCss = React.useMemo(() => buildOpenChatWidgetThemeCss(), []);
 
   const {
     messages,
@@ -85,6 +76,27 @@ export function OpenChatWidget({ url }: OpenChatWidgetProps) {
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  React.useEffect(() => {
+    const handleViewportChange = () => {
+      if (typeof window === "undefined") {
+        return;
+      }
+      setVisualViewportHeight(window.visualViewport?.height ?? window.innerHeight);
+      setVisualViewportOffsetTop(window.visualViewport?.offsetTop ?? 0);
+    };
+
+    handleViewportChange();
+    window.addEventListener("resize", handleViewportChange);
+    window.visualViewport?.addEventListener("resize", handleViewportChange);
+    window.visualViewport?.addEventListener("scroll", handleViewportChange);
+
+    return () => {
+      window.removeEventListener("resize", handleViewportChange);
+      window.visualViewport?.removeEventListener("resize", handleViewportChange);
+      window.visualViewport?.removeEventListener("scroll", handleViewportChange);
     };
   }, []);
 
@@ -188,15 +200,27 @@ export function OpenChatWidget({ url }: OpenChatWidgetProps) {
     [submitMessage],
   );
 
+  const handleFocusInput = React.useCallback(() => {
+    setIsInputFocused(true);
+  }, []);
+
+  const handleBlurInput = React.useCallback(() => {
+    setIsInputFocused(false);
+  }, []);
+
+  const mobilePanelHeight =
+    visualViewportHeight > 0 ? `${Math.round(visualViewportHeight)}px` : "100dvh";
+  const mobilePanelTop =
+    visualViewportOffsetTop > 0 ? `${Math.round(visualViewportOffsetTop)}px` : "0px";
+
   const panelStyle: React.CSSProperties = isMobileViewport
     ? {
         position: "fixed",
-        top: "0px",
+        top: mobilePanelTop,
         left: "0",
         right: "0",
-        bottom: "0",
         width: "100vw",
-        height: "100dvh",
+        height: mobilePanelHeight,
         borderRadius: "0",
         background: "#ffffff",
         display: "flex",
@@ -220,26 +244,33 @@ export function OpenChatWidget({ url }: OpenChatWidgetProps) {
           "0 20px 48px rgba(15, 23, 42, 0.16), 0 3px 10px rgba(15, 23, 42, 0.08)",
       };
 
+  const emptyState = (
+    <EmptyState isMobileViewport={isMobileViewport} />
+  );
+
   return (
     <div data-openchatwidget-root="">
-      <style>{WIDGET_STYLE}</style>
+      <style>{themeCss}</style>
       <ChatToggleButton
         ref={toggleRef}
         isOpen={isOpen}
         isMobile={isMobileViewport}
         onToggle={toggleOpen}
         unreadCount={0}
+        logoSrc={HELPFUL_CHAT_LOGO_DATA_URI}
       />
       <WidgetPanel
         isOpen={isOpen}
         isMobileViewport={isMobileViewport}
-        title="OpenChatWidget"
+        title={DEFAULT_TITLE}
         onClose={closeChat}
         panelStyle={panelStyle}
         panelRef={panelRef}
+        logoSrc={HELPFUL_CHAT_LOGO_DATA_URI}
       >
         <div
           style={{
+            position: "relative",
             display: "flex",
             flexDirection: "column",
             flex: 1,
@@ -252,26 +283,26 @@ export function OpenChatWidget({ url }: OpenChatWidgetProps) {
             error={error}
             isMobileViewport={isMobileViewport}
             messageContainerRef={messageListRef}
-            getMessageText={(message) => extractMessageText(message)}
+            getMessageText={(parts) => extractMessageText({ parts })}
             renderMarkdown={(text) => <MarkdownMessage text={text} />}
-            emptyState={
-              <p style={{ color: "#64748b", textAlign: "center", margin: 0, padding: "8px 10px" }}>
-                Start a conversation by sending a message.
-              </p>
-            }
+            emptyState={emptyState}
+            hasApiKey
           />
           <Composer
             input={input}
             setInput={setInput}
+            placeholder={DEFAULT_PLACEHOLDER}
             isGenerating={isGenerating}
             canSend={canSend}
             isMobileViewport={isMobileViewport}
+            isInputFocused={isInputFocused}
             textareaRef={textareaRef}
             onSubmit={handleSubmit}
-            onStop={stop}
+            onStop={() => void stop()}
             onInputKeyDown={handleInputKeyDown}
-            onFocus={() => {}}
-            onBlur={() => {}}
+            onFocus={handleFocusInput}
+            onBlur={handleBlurInput}
+            logoSrc={HELPFUL_CHAT_LOGO_DATA_URI}
           />
         </div>
       </WidgetPanel>
