@@ -30,15 +30,28 @@ The widget sends requests to `${url}/api/chat` (or uses `url` as-is when it alre
 
 ## Example backend and app
 
-A Vite + Hono example app lives in:
+A Vite + Express example app lives in:
 
-`/Users/matt8p/Desktop/openchatwidget/examples`
+`/Users/matt8p/Desktop/openchatwidget/examples/vite-express-app`
 
 It includes:
 
 - Vite landing page with `OpenChatWidget`
-- Hono `POST /api/chat` endpoint
+- Express `POST /api/chat` endpoint
 - AI SDK streaming response from the backend endpoint
+
+## Backend helpers
+
+The package also re-exports the backend helpers used by the example server, so a simple OpenAI-backed server can import from `openchatwidget` directly:
+
+```ts
+import {
+  convertToModelMessages,
+  createOpenAI,
+  streamText,
+  type UIMessage,
+} from "openchatwidget";
+```
 
 ## Build
 

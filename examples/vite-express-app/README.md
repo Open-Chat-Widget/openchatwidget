@@ -1,29 +1,23 @@
 # OpenChatWidget Examples
 
-This folder contains a blank Vite + Hono app wired to `OpenChatWidget`.
+This folder contains a minimal Vite + Express app wired to `OpenChatWidget`.
 
 ## Run it
 
 1. Install dependencies:
 
 ```bash
-cd /Users/matt8p/Desktop/openchatwidget/examples
+cd /Users/matt8p/Desktop/openchatwidget/examples/vite-express-app
 npm install
 ```
 
-2. Add env vars for the Hono agent:
+2. Add env vars for the Express agent:
 
 ```bash
 cp .env.example .env
 ```
 
-3. Start the Hono API server:
-
-```bash
-npm run dev:api
-```
-
-4. In a second terminal, start Vite:
+3. Start both the frontend and backend:
 
 ```bash
 npm run dev
@@ -33,4 +27,4 @@ Frontend: `http://localhost:5173`
 API: `http://localhost:8787/api/chat`
 
 The landing page mounts `<OpenChatWidget />`, and the widget streams responses
-from the Hono `POST /api/chat` endpoint.
+from the Express `POST /api/chat` endpoint.
