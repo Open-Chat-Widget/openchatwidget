@@ -1,0 +1,55 @@
+{
+  "name": "openchatwidget",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Open-source chat widget powered by Vercel AI SDK streaming.",
+  "type": "module",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup --config tsup.config.ts",
+    "build:client": "tsup --config tsup.config.ts --entry widget/src/index.ts --out-dir dist",
+    "build:server": "tsup --config tsup.config.ts --entry widget/server/index.ts --out-dir dist",
+    "dev:server": "tsx widget/server/index.ts",
+    "start:server": "node dist/server/index.js"
+  },
+  "keywords": [
+    "ai",
+    "chat",
+    "widget",
+    "openai",
+    "vercel-ai-sdk",
+    "streaming"
+  ],
+  "dependencies": {
+    "@ai-sdk/openai": "^3.0.30",
+    "@ai-sdk/react": "^3.0.99",
+    "ai": "^6.0.97",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.0.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@types/express": "^5.0.2",
+    "tsx": "^4.7.2",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  }
+}
