@@ -18,19 +18,10 @@ Open Chat Widget lets you embed a ChatGPT-like AI chat widget into your website.
 
 If you want to bring agentic chat to your product, this is it. Get started with a few lines of code.
 
-### Example use cases
-
-- **AI customer service agent** - 
-  Help customers get instant answers, resolve common support questions, and reduce ticket volume. Open source free alternative to Intercom's Fin Agent.\
-
-- **Knowledge base and documentation search** -
-  Let users ask questions about your docs, product guides, or internal knowledge base in natural language.
-
-- **In-product onboarding** -
-  Add a chat assistant that helps users navigate your dashboard, learn features, and get unstuck faster.
-
-- **Bookings and task automation** -
-  Power flows like scheduling meetings, tracking orders, booking appointments, and triggering simple actions.
+### Compatibility 
+Works with any JavaScript framework and popular website builders:
+- **Frameworks:** React, Next.js, Vue, Angular, Svelte
+- **Platforms:** WordPress, Shopify, Wix (via script embed)
 
 ## 🚀 Quick Start
 
@@ -88,6 +79,20 @@ app.post("/api/chat", async (request, response) => {
 Grab the exact URL of your agent endpoint and paste it into `<YOUR_AGENT_STREAMING_ENDPOINT>`, for example `http://localhost:8787/api/chat`. Make sure to start both your front end and Node backend. You should be able to start chatting.
 
 For a working basic example, check out [`examples/vite-express-app`](./examples/vite-express-app/).
+
+### Example use cases
+
+- **AI customer service agent** - 
+  Help customers get instant answers, resolve common support questions, and reduce ticket volume. Open source free alternative to Intercom's Fin Agent.\
+
+- **Knowledge base and documentation search** -
+  Let users ask questions about your docs, product guides, or internal knowledge base in natural language.
+
+- **In-product onboarding** -
+  Add a chat assistant that helps users navigate your dashboard, learn features, and get unstuck faster.
+
+- **Bookings and task automation** -
+  Power flows like scheduling meetings, tracking orders, booking appointments, and triggering simple actions.
 
 ## ✨ Features
 
