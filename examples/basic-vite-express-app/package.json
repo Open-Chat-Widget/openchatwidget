@@ -4,8 +4,6 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "predev": "npm --prefix ../../sdk run build",
-    "prebuild": "npm --prefix ../../sdk run build",
     "dev": "concurrently --kill-others-on-fail \"npm:dev:client\" \"npm:dev:server\"",
     "dev:client": "vite --host 127.0.0.1",
     "dev:server": "node --import tsx server/index.ts",
@@ -13,10 +11,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@openchatwidget/sdk": "^0.1.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
-    "openchatwidget": "file:../../sdk",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },

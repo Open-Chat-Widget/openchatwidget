@@ -1,8 +1,8 @@
 {
-  "name": "openchatwidget",
+  "name": "@openchatwidget/sdk",
   "version": "0.1.0",
   "private": false,
-  "description": "Open-source chat widget powered by Vercel AI SDK streaming.",
+  "description": "Open-source chat widget.",
   "type": "module",
   "license": "MIT",
   "main": "dist/index.js",

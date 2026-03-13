@@ -7,7 +7,7 @@ This folder contains a minimal Vite + Express app wired to `OpenChatWidget`.
 1. Install dependencies:
 
 ```bash
-cd /Users/matt8p/Desktop/openchatwidget/examples/vite-express-app
+cd /Users/matt8p/Desktop/openchatwidget/examples/basic-vite-express-app
 npm install
 ```
 

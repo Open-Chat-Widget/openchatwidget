@@ -24,13 +24,13 @@ If you want to bring agentic chat to your product, this is it. Get started with 
 Install the widget in your React app:
 
 ```bash
-npm install openchatwidget
+npm install @openchatwidget/sdk
 ```
 
 Embed the component anywhere in your project. A common pattern is to mount it in your main app layout so it appears across your site.
 
 ```tsx
-import { OpenChatWidget } from "openchatwidget";
+import { OpenChatWidget } from "@openchatwidget/sdk";
 
 export default function App() {
   return (

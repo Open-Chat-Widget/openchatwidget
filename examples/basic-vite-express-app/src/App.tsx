@@ -1,4 +1,4 @@
-import { OpenChatWidget } from "openchatwidget";
+import { OpenChatWidget } from "@openchatwidget/sdk";
 
 const chatApiUrl =
   import.meta.env.VITE_CHAT_API_URL ?? "http://localhost:8787/api/chat";

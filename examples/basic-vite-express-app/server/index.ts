@@ -6,7 +6,7 @@ import {
   createOpenAI,
   streamText,
   type UIMessage,
-} from "openchatwidget";
+} from "@openchatwidget/sdk";
 
 const app = express();
 
