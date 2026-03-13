@@ -1,0 +1,33 @@
+{
+  "name": "openchatwidget-examples",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "predev": "npm --prefix ../../sdk run build",
+    "prebuild": "npm --prefix ../../sdk run build",
+    "dev": "vite",
+    "dev:api": "tsx server/index.ts",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^3.0.30",
+    "@hono/node-server": "^1.13.7",
+    "ai": "^6.0.97",
+    "dotenv": "^17.2.0",
+    "hono": "^4.6.13",
+    "openchatwidget": "file:../../sdk",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tsx": "^4.7.2",
+    "typescript": "^5.9.3",
+    "vite": "^5.4.11"
+  }
+}

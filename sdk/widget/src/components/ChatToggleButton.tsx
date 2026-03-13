@@ -41,12 +41,13 @@ export const ChatToggleButton = React.forwardRef<
   HTMLButtonElement,
   OpenChatWidgetToggleProps
 >(function ChatToggleButton(
-  isOpen,
-  onToggle,
-  isMobile = false,
-  logoSrc = DEFAULT_LOGO_SRC,
-  unreadCount = 0,
-}: OpenChatWidgetToggleProps,
+  {
+    isOpen,
+    onToggle,
+    isMobile = false,
+    logoSrc = DEFAULT_LOGO_SRC,
+    unreadCount = 0,
+  },
   ref,
 ) {
   const [logoLoadFailed, setLogoLoadFailed] = React.useState(false);

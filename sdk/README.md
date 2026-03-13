@@ -1,13 +1,12 @@
 # OpenChatWidget
 
 OpenChatWidget is a minimal, open-source React chat widget for any website.
-It uses Vercel AI SDK streaming end-to-end and intentionally ships only the essentials:
+It intentionally ships only the client widget:
 
 - floating bottom-right widget UI
-- text streaming support via `streamText`
-- Node backend `/api/chat` endpoint
+- AI SDK chat streaming client
 
-Live chat, Convex, and dashboard features are intentionally excluded.
+Live chat, Convex, dashboard, and backend hosting are intentionally excluded.
 
 ## Install the widget
 
@@ -26,43 +25,20 @@ export default function App() {
 }
 ```
 
-`url` is the only configurable React prop and should point to your chat backend root URL.
+`url` is the only configurable React prop and should point to your backend root URL.
+The widget sends requests to `${url}/api/chat` (or uses `url` as-is when it already ends in `/api/chat`).
 
-## Run the local streaming backend
+## Example backend and app
 
-```bash
-cd /Users/matt8p/Desktop/openchatwidget/sdk
-cp .env.example .env
-npm install
-npm run dev:server
-```
+A Vite + Hono example app lives in:
 
-Required environment variables:
+`/Users/matt8p/Desktop/openchatwidget/examples`
 
-- `OPENAI_API_KEY`
-- optional `OPENAI_MODEL` (defaults to `gpt-4o-mini`)
-- optional `OPENCHAT_PROMPT`
-- optional `PORT` (defaults to `3001`)
+It includes:
 
-Backend health check:
-
-```bash
-curl http://localhost:3001/health
-```
-
-## Backend contract
-
-`POST /api/chat` expects:
-
-```json
-{
-  "messages": [
-    { "role": "user", "content": "Hello" }
-  ]
-}
-```
-
-and streams a Vercel AI SDK-compatible response.
+- Vite landing page with `OpenChatWidget`
+- Hono `POST /api/chat` endpoint
+- AI SDK streaming response from the backend endpoint
 
 ## Build
 
@@ -73,4 +49,3 @@ npm run build
 This outputs:
 
 - `dist/index.js` (widget bundle)
-- `dist/server/index.js` (node backend)

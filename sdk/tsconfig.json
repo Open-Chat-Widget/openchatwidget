@@ -11,5 +11,5 @@
     "lib": ["DOM", "ES2022"],
     "esModuleInterop": true
   },
-  "include": ["widget/src/**/*", "widget/server/**/*"]
+  "include": ["widget/src/**/*"]
 }
