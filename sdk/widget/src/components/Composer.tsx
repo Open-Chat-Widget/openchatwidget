@@ -144,7 +144,7 @@ export function Composer({
         </button>
       </div>
       <a
-        href="https://helpfulchatapp.com"
+        href="https://openchatwidget.com"
         target="_blank"
         rel="noreferrer"
         style={{

@@ -14,7 +14,7 @@
   </p>
 </div>
 
-Open Chat Widget lets you embed a ChatGPT-like AI chat widget into your website. Connect the widget to custom AI agents you build, with any LLM model. Open Chat Widget handles text streaming, tool calling, and a production ready chat UI with minimal set up. Built on Vercel AI SDK. 
+Open Chat Widget gives you a feature-rich, ChatGPT like AI chat widget embedded into your website. Connect the widget to custom AI agents you build, with any LLM model. Open Chat Widget handles text streaming, tool calling, and a production ready chat UI with minimal set up. Built on Vercel AI SDK. 
 
 If you want to bring agentic chat to your product, this is it. Get started with a few lines of code.
 
