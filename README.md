@@ -24,7 +24,9 @@ Open Chat Widget lets you embed a ChatGPT-like AI chat assistant into your site.
 
 - **Open source** — MIT licensed. Free forever. You own your data and infrastructure. 
 
-<img src="public/product-demo.png" alt="Open Chat Widget product demo — AI assistant handling order status and cancellations" width="100%" /> 
+<div align="center">
+  <img src="public/product-demo.png" alt="Open Chat Widget product demo — AI assistant handling order status and cancellations" width="50%" />
+</div> 
 
 ## 🚀 Quick Start (React / Next.js)
 
