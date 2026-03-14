@@ -104,7 +104,7 @@ We want to be opiniated on how
 
 ## 🛣️ Roadmap
 
-TBD
+[See ROADMAP.md](../ROADMAP.md)
 ## 🤝 Community
 
 - [Discord](https://discord.gg/jA4vcJKECy)

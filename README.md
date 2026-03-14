@@ -1,52 +1,55 @@
-<img src="public/open-chat-widget-banner.png" alt="OpenChatWidget banner" width="100%" />
+<div align="center">
+  <img src="public/open-chat-widget-banner.png" alt="OpenChatWidget banner" width="100%" />
 
-OpenChatWidget lets you embed a ChatGPT-like AI chat widget into your website. Connect the widget to any AI agent you build, any LLM model. It's free, open source, and self hosted. You own the entire stack. 
+  <p>
+    <a href="https://www.npmjs.com/package/@openchatwidget/sdk">
+      <img src="https://img.shields.io/npm/v/%40openchatwidget%2Fsdk?style=for-the-badge&color=blue" alt="npm version" />
+    </a>
+    <a href="./LICENSE">
+      <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="License: MIT" />
+    </a>
+    <a href="https://discord.gg/jA4vcJKECy">
+      <img src="https://img.shields.io/badge/Discord-Join%20Server-5865F2.svg?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" />
+    </a>
+  </p>
+</div>
 
-If you want to bring agentic chat to your product, this is it. Get started with only a few lines of code. 
+Open Chat Widget lets you embed a ChatGPT-like AI chat assistant into your site. Use it for customer service (free Intercom Fin alternative), knowledge base / documentation search, onboarding assistant, and more. Build great AI chat experiences for your users.  
 
-### Example use cases
+- **Drop-in ease** - One component for feature-rich AI chat that works out of the box. Minimal set up required.
 
-- **AI customer service agent** - 
-  Help customers get instant answers, resolve common support questions, and reduce ticket volume. Open source free alternative to Intercom's Fin Agent.\
+- **Bring your own agent** — Build custom agents with Vercel AI SDK. Point the widget at your agent streaming endpoint. Works with existing AI SDK agents. 
 
-- **Knowledge base and documentation search** -
-  Let users ask questions about your docs, product guides, or internal knowledge base in natural language.
+- **Framework-agnostic** — React, Next.js, Vue, WordPress, Shopify, Wix. Works with any web framework or website platform.
 
-- **In-product onboarding** -
-  Add a chat assistant that helps users navigate your dashboard, learn features, and get unstuck faster.
+- **Open source** — MIT licensed. Free forever. You own your data and infrastructure. 
 
-- **Bookings and task automation** -
-  Power flows like scheduling meetings, tracking orders, booking appointments, and triggering simple actions.
+## 🚀 Quick Start (React / Next.js)
 
-## 🚀 Quick Start
-
-### 1. Install the chat widget 
+### Step 1: Install the SDK
 Install the widget in your React app:
 
 ```bash
 npm install @openchatwidget/sdk
 ```
 
-Embed the component anywhere in your project. A common pattern is to mount it in your main app layout so it appears across your site.
+Then embed the component anywhere in your project. A common pattern is to mount it in your main app layout so it appears across your site.
 
 ```tsx
 import { OpenChatWidget } from "@openchatwidget/sdk";
 
-export default function App() {
+export default function MySite() {
   return (
     <>
-      <main>
-        ...
-      </main>
-
-      <OpenChatWidget url="<YOUR_AGENT_STREAMING_ENDPOINT>" /> // Fill out streaming endpoint in Step 3.
+      ...
+      <OpenChatWidget url="<YOUR_AGENT_STREAMING_ENDPOINT>" /> 
     </>
   );
 }
 ```
 
-### 2. Build your first agent
-
+<details>
+<summary><span style="font-size: 1.25em; font-weight: 600;">Step 2: Build an AI agent</span></summary>
 The next step is to set up your AI agent backend. Create an API endpoint with your favorite Node backend framework, such as Express or Hono.
 
 Here's a simple text stream agent: 
@@ -68,43 +71,31 @@ app.post("/api/chat", async (request, response) => {
   result.pipeUIMessageStreamToResponse(response);
 });
 ```
+</details>
 
-### 3. Connect the widget to the agent. 
+<details>
+<summary><span style="font-size: 1.25em; font-weight: 600;">Step 3: Connect widget to agent</span></summary>
 
-Grab the exact URL of your agent endpoint and paste it into `<YOUR_AGENT_STREAMING_ENDPOINT>`, for example `http://localhost:8787/api/chat`. Make sure to start both your front end and Node backend. You should be able to start chatting.
+Paste the streaming URL endpoint into the `<OpenChatWidget />` UI component:
 
-For a working basic example, check out [`examples/vite-express-app`](./examples/vite-express-app/).
+```tsx
+<OpenChatWidget url="http://localhost:8787/api/chat" /> 
+```
 
-## ✨ Features
+You should now be ready to chat!
+</details> 
 
-| Feature | Details |
-| --- | --- |
-| Embeddable widget | Add a bottom-right AI chat widget to any React / Next app with a single component. |
-| Custom AI agent | Create your own AI agent hosted on any Node backend framework |
-| 🚧 Live chat |  Chat with users in real time, just like Intercom but free |
-| 🚧 Support for voice and image uploading |  Be able to talk to engage and upload photos in the chat widget |
-| 🚧 Support for MCP and MCP apps | Connect to MCP servers and render UI from MCP apps  |
-| 🚧 Client side tools |  Be able to call tools on the UI client side, WebMCP style. |
-
-<img src="public/product-demo-filler.png" alt="OpenChatWidget product demo" width="100%" />
-
-## Stack 
-Open Chat Widget is a simple UI wrapper around [Vercel AI-SDK](https://ai-sdk.dev/docs/introduction). When building your backend AI agent, all capabilities from AI-SDK are compatible with Open Chat Widget. 
-
-- Front end is written in React / Typescript 
-- Agentic chat powered by Vercel AI SDK. 
-
-### Why AI-SDK? 
-We want to be opiniated on how 
-
-## 📦 Examples
-
-- [`examples/vite-express-app`](./examples/vite-express-app): Vite frontend with an Express backend and OpenAI streaming
+## Examples
+We've included some examples of Open Chat Widget installed in web app projects as reference: 
 
 
-## 🛣️ Roadmap
+- [`examples/vite-express-app`](./examples/vite-express-app): Open Chat Widget installed in a React + Vite frontend with an Express backend. 
+- [`examples/nextjs-landing-page`](./examples/nextjs-landing-page): Open Chat Widget installed on a Next.js app with API Routes. This is the live landing page too. 
 
-TBD
+## Roadmap
+
+[See ROADMAP.md](./ROADMAP.md)
+
 ## 🤝 Community
 
 - [Discord](https://discord.gg/jA4vcJKECy)
@@ -112,4 +103,4 @@ TBD
 
 ## 📄 License
 
-MIT. See [LICENSE](./LICENSE).
+Open Source MIT. See [LICENSE](./LICENSE).
