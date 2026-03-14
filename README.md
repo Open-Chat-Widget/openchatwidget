@@ -16,7 +16,7 @@
 
 Open Chat Widget lets you embed a ChatGPT-like AI chat assistant into your site. Use it for customer service (free Intercom Fin alternative), knowledge base / documentation search, onboarding assistant, and more. Build great AI chat experiences for your users.  
 
-- **Drop-in ease** - One component for feature-rich AI chat that works out of the box. Minimal set up required.
+- **Plug and play** - One component for feature-rich AI chat that works out of the box. Minimal set up required.
 
 - **Bring your own agent** — Build custom agents with Vercel AI SDK. Point the widget at your agent streaming endpoint. Works with existing AI SDK agents. 
 
@@ -34,7 +34,7 @@ Open Chat Widget lets you embed a ChatGPT-like AI chat assistant into your site.
 Install the widget in your React app:
 
 ```bash
-npm install @openchatwidget/sdk
+npm i @openchatwidget/sdk
 ```
 
 Then embed the component anywhere in your project. A common pattern is to mount it in your main app layout so it appears across your site.
