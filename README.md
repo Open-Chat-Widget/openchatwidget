@@ -16,11 +16,11 @@
 
 Open Chat Widget lets you embed a ChatGPT-like AI chat assistant into your site. Use it for customer service (free Intercom Fin alternative), knowledge base / documentation search, onboarding assistant, and more. Build great AI chat experiences for your users.  
 
-- **Drop in** - One component for feature-rich AI chat that works out of the box.
+- **Drop-in ease** - One component for feature-rich AI chat that works out of the box. Minimal set up required.
 
 - **Bring your own agent** — Build custom agents with Vercel AI SDK. Point the widget at your agent streaming endpoint. Works with existing AI SDK agents. 
 
-- **Framework-agnostic** — React, Next.js, Vue, WordPress, Shopify, Wix. Works with any stack.
+- **Framework-agnostic** — React, Next.js, Vue, WordPress, Shopify, Wix. Works with any web framework or website platform.
 
 - **Open source** — MIT licensed. Free forever. You own your data and infrastructure. 
 
@@ -48,8 +48,8 @@ export default function MySite() {
 }
 ```
 
-### Step 2: Build an AI agent
-
+<details>
+<summary><span style="font-size: 1.25em; font-weight: 600;">Step 2: Build an AI agent</span></summary>
 The next step is to set up your AI agent backend. Create an API endpoint with your favorite Node backend framework, such as Express or Hono.
 
 Here's a simple text stream agent: 
@@ -71,8 +71,10 @@ app.post("/api/chat", async (request, response) => {
   result.pipeUIMessageStreamToResponse(response);
 });
 ```
+</details>
 
-### 3. Connect widget to agent
+<details>
+<summary><span style="font-size: 1.25em; font-weight: 600;">Step 3: Connect widget to agent</span></summary>
 
 Paste the streaming URL endpoint into the `<OpenChatWidget />` UI component:
 
@@ -80,32 +82,25 @@ Paste the streaming URL endpoint into the `<OpenChatWidget />` UI component:
 <OpenChatWidget url="http://localhost:8787/api/chat" /> 
 ```
 
-You should now be ready to chat! 
+You should now be ready to chat!
+</details> 
 
-### Additional guides 
+## Examples
+We've included some examples of Open Chat Widget installed in web app projects as reference: 
 
-Check out our documentation and simple example below to learn more. 
-- [Documentation](www.openchatwidget.com)
-- [Example: `examples/vite-express-app`](./examples/vite-express-app/).
-
-If you need additional assistance, join our [Discord](https://discord.gg/jA4vcJKECy). We'd be more than happy to help get you personally set up. 
-
-
-## 📦 Examples
 
 - [`examples/vite-express-app`](./examples/vite-express-app): Open Chat Widget installed in a React + Vite frontend with an Express backend. 
 - [`examples/nextjs-landing-page`](./examples/nextjs-landing-page): Open Chat Widget installed on a Next.js app with API Routes. This is the live landing page too. 
 
-## 🛣️ Roadmap
+## Roadmap
 
 [See ROADMAP.md](./ROADMAP.md)
+
 ## 🤝 Community
 
 - [Discord](https://discord.gg/jA4vcJKECy)
 - [CONTRIBUTING.md](CONTRIBUTING.md)
 
-If you have any questions, also feel free to email matt@openchatwidget.com
-
 ## 📄 License
 
-MIT. See [LICENSE](./LICENSE).
+Open Source MIT. See [LICENSE](./LICENSE).
