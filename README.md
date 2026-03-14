@@ -20,9 +20,11 @@ Open Chat Widget lets you embed a ChatGPT-like AI chat assistant into your site.
 
 - **Bring your own agent** — Build custom agents with Vercel AI SDK. Point the widget at your agent streaming endpoint. Works with existing AI SDK agents. 
 
-- **Framework-agnostic** — React, Next.js, Vue, WordPress, Shopify, Wix. Works with any web framework or website platform.
+- **Framework-agnostic** — React, Next.js, Vue, WordPress, Shopify, Wix. Plugs in to any web framework or website platform.
 
 - **Open source** — MIT licensed. Free forever. You own your data and infrastructure. 
+
+<img src="public/product-demo.png" alt="Open Chat Widget product demo — AI assistant handling order status and cancellations" width="100%" /> 
 
 ## 🚀 Quick Start (React / Next.js)
 
