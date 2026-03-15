@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.30",
-    "@openchatwidget/sdk": "file:../../sdk",
+    "@openchatwidget/sdk": "@openchatwidget/sdk",
+    "@openrouter/ai-sdk-provider": "^2.3.1",
     "ai": "^6.0.97",
     "lucide-react": "^0.575.0",
     "next": "16.1.6",
