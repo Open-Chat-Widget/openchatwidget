@@ -27,3 +27,5 @@ Thumbs.db
 *.swo
 .idea/
 .vscode/
+
+MANIFEST.md

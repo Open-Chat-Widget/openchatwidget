@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 const navLinkBaseClass =
   "rounded-full border px-3.5 py-2 text-base font-medium transition-colors";
@@ -24,22 +23,19 @@ type SiteLayoutProps = {
   children: ReactNode;
 };
 
+const DOCS_URL = "https://github.com/Open-Chat-Widget/openchatwidget#readme";
+const COMMUNITY_URL = "https://discord.gg/jA4vcJKECy";
+const REPO_URL = "https://github.com/Open-Chat-Widget/openchatwidget";
+
 export function SiteLayout({ children }: SiteLayoutProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const pathname = usePathname();
-
-  const isActive = (href: string) => pathname === href;
-
-  useEffect(() => {
-    setIsMenuOpen(false);
-  }, [pathname]);
 
   return (
     <div className="min-h-screen px-4 py-5 sm:px-5">
       <header className="mx-auto max-w-7xl pb-4">
         <div className="flex items-center gap-3 lg:justify-between">
           <Link
-            aria-label="HelpfulChat Home"
+            aria-label="Open Chat Widget Home"
             className="inline-flex items-center gap-2 text-base text-[#1b1d22] no-underline"
             href="/"
           >
@@ -53,7 +49,7 @@ export function SiteLayout({ children }: SiteLayoutProps) {
               className="text-xl font-semibold tracking-[0.01em]"
               style={{ fontFamily: '"Sora", "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif' }}
             >
-              HelpfulChat
+              Open Chat Widget
             </span>
           </Link>
 
@@ -87,37 +83,61 @@ export function SiteLayout({ children }: SiteLayoutProps) {
           </button>
 
           <nav className="hidden items-center gap-2 lg:flex" aria-label="Primary">
-            <Link className={navLinkClass(isActive("/product"))} href="/product">
-              Product
+            <Link
+              className={navLinkClass(false)}
+              href={DOCS_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Docs
             </Link>
-            <Link className={navLinkClass(isActive("/pricing"))} href="/pricing">
-              Pricing
-            </Link>
-            <Link className={navLinkClass(isActive("/contact"))} href="/contact">
-              Contact
+            <Link
+              className={navLinkClass(false)}
+              href={COMMUNITY_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Community
             </Link>
           </nav>
 
-          <Link className={`${ghostButtonClass} hidden lg:inline-flex`} href="/contact">
-            Request Demo
+          <Link
+            className={`${ghostButtonClass} hidden lg:inline-flex`}
+            href={REPO_URL}
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub repo
           </Link>
         </div>
 
         {isMenuOpen ? (
           <div className="mt-3 rounded-2xl border border-[#e5e7eb] bg-white p-3 lg:hidden">
             <nav className="flex flex-col gap-1.5" aria-label="Mobile primary">
-              <Link className={mobileNavLinkClass(isActive("/product"))} href="/product">
-                Product
+              <Link
+                className={mobileNavLinkClass(false)}
+                href={DOCS_URL}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Docs
               </Link>
-              <Link className={mobileNavLinkClass(isActive("/pricing"))} href="/pricing">
-                Pricing
-              </Link>
-              <Link className={mobileNavLinkClass(isActive("/contact"))} href="/contact">
-                Contact
+              <Link
+                className={mobileNavLinkClass(false)}
+                href={COMMUNITY_URL}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Community
               </Link>
             </nav>
-            <Link className={`${ghostButtonClass} mt-2 flex w-full`} href="/contact">
-              Request Demo
+            <Link
+              className={`${ghostButtonClass} mt-2 flex w-full`}
+              href={REPO_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub repo
             </Link>
           </div>
         ) : null}
