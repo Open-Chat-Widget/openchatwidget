@@ -58,7 +58,17 @@ The next step is to set up your AI agent backend. Create an API endpoint with yo
 
 Here's a simple text stream agent: 
 ```tsx
+import {
+  convertToModelMessages,
+  createOpenAI,
+  streamText,
+  type UIMessage,
+} from "@openchatwidget/sdk";
+import express from "express";
+
+const app = express();
 app.use(express.json());
+
 app.post("/api/chat", async (request, response) => {
   const { messages } = request.body as { messages: UIMessage[] };
 

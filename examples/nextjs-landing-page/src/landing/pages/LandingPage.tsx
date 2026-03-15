@@ -84,20 +84,20 @@ export function LandingPage() {
   }
 
   return (
-    <div className="grid min-h-[calc(100vh-140px)] place-items-start pt-2 sm:place-items-center sm:pt-0">
+    <div className="h-[calc(100vh-140px)] overflow-hidden pt-12 sm:pt-16">
       <>
         <section
-          className="reveal mx-auto w-full max-w-6xl bg-white px-4 pt-6 pb-10 text-center sm:px-6 sm:pt-10 sm:pb-14"
+          className="reveal mx-auto w-full max-w-6xl bg-white px-4 pt-8 pb-10 text-center sm:px-6 sm:pt-10 sm:pb-32"
           style={{ animationDelay: "40ms" }}
         >
           <h1 className="mx-auto m-0 max-w-[20ch] text-[clamp(1.95rem,8.8vw,3.8rem)] leading-[1.08] tracking-[-0.03em]">
             Bring AI chat into your site. 
           </h1>
           <p className="mx-auto mt-5 max-w-[66ch] text-base leading-relaxed text-[#4b5563] sm:mt-6 sm:text-lg">
-            Open Chat widget lets you embed an AI chat widget into your product. Build customer service assistants, knowldge base agents, onboarding assistant, and more. 
+            Open Chat widget lets you embed an AI agent directly into your product. Build customer service assistants, knowldge base agents, onboarding assistants, and more. 
           </p>
 
-          <div className="mx-auto mt-8 flex max-w-full flex-col items-center justify-center gap-3">
+          <div className="mx-auto mt-8 mb-24 flex max-w-full flex-col items-center justify-center gap-3 sm:mb-32">
             <button
               className={primaryButtonClassName}
               type="button"
@@ -133,16 +133,23 @@ export function LandingPage() {
             <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-[#9ca3af]">
               Works with
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4 opacity-70 sm:gap-5">
-              <img src="/assets/shopify-mono-black.png" alt="Shopify" className="h-6 w-auto" loading="lazy" />
-              <img
-                src="/assets/squarespace-logo-black.webp"
-                alt="Squarespace"
-                className="h-7 w-auto"
-                loading="lazy"
-              />
-              <img src="/assets/wix-logo-black.png" alt="Wix" className="h-6 w-auto" loading="lazy" />
-              <img src="/assets/wordpress_gray.png" alt="WordPress" className="h-9 w-auto" loading="lazy" />
+            <div className="flex flex-col items-center gap-4 sm:gap-5">
+              <div className="flex flex-wrap items-center justify-center gap-4 opacity-50 sm:gap-5">
+                <img src="/assets/nextjs.png" alt="Next.js" className="h-5 w-auto" loading="lazy" />
+                <img src="/assets/react.png" alt="React" className="h-7 w-auto" loading="lazy" />
+                <img src="/assets/vue-js.svg" alt="Vue" className="h-6 w-auto" loading="lazy" />
+              </div>
+              <div className="flex flex-wrap items-center justify-center gap-4 opacity-50 sm:gap-5">
+                <img src="/assets/shopify-mono-black.png" alt="Shopify" className="h-6 w-auto" loading="lazy" />
+                <img
+                  src="/assets/squarespace-logo-black.webp"
+                  alt="Squarespace"
+                  className="h-7 w-auto"
+                  loading="lazy"
+                />
+                <img src="/assets/wix-logo-black.png" alt="Wix" className="h-6 w-auto" loading="lazy" />
+                <img src="/assets/wordpress_gray.png" alt="WordPress" className="h-9 w-auto" loading="lazy" />
+              </div>
             </div>
           </div>
         </section>
@@ -167,8 +174,8 @@ export function LandingPage() {
           }
 
           .landing-page-try-it-out-mobile {
-            right: 56px;
-            bottom: 42px;
+            right: 80px;
+            bottom: 20px;
             width: 100px;
           }
 
@@ -183,8 +190,8 @@ export function LandingPage() {
 
             .landing-page-try-it-out-desktop {
               display: block;
-              right: 70px;
-              bottom: 55px;
+              right: 80px;
+              bottom: 95px;
               width: 140px;
             }
           }

@@ -11,7 +11,7 @@ export function ProductPage() {
         <article className="mx-auto grid w-full max-w-5xl gap-2">
           <img
             src="/assets/widget_screenshot.png"
-            alt="HelpfulChat storefront widget shown to customers"
+            alt="Open Chat Widget storefront widget shown to customers"
             className="w-full rounded-2xl border border-[#e5e7eb] bg-white shadow-[0_16px_32px_-24px_rgba(17,24,39,0.4)]"
             loading="eager"
           />
