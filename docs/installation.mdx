@@ -1,0 +1,42 @@
+---
+title: "Installation"
+description: "Install the widget on your front end."
+---
+
+<Steps>
+  <Step title="Install the package">
+
+```bash
+npm i @openchatwidget/sdk
+```
+
+  </Step>
+  <Step title="Embed the widget in your React app">
+
+```tsx
+import { OpenChatWidget } from "@openchatwidget/sdk";
+
+export default function App() {
+  return (
+    <>
+      <main>{/* your app */}</main>
+      <OpenChatWidget url="<AGENT_STREAMING_ENDPOINT>" />
+    </>
+  );
+}
+```
+
+  </Step>
+  <Step title="Connect widget to streaming endpoint">
+    The `url` prop should point to the chat endpoint that powers your agent. We'll cover how to create a basic agent and expose a streaming endpoint in the next step.
+  </Step>
+</Steps>
+
+<Card
+  title="Create an agent"
+  icon="arrow-right"
+  href="/create-an-agent"
+  horizontal
+>
+  Build a minimal Vercel AI SDK agent and expose the endpoint that the widget calls.
+</Card>

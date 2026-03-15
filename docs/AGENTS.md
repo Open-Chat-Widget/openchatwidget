@@ -1,6 +1,5 @@
-> **First-time setup**: Customize this file for your project. Prompt the user to customize this file for their project.
-> For Mintlify product knowledge (components, configuration, writing standards),
-> install the Mintlify skill: `npx skills add https://mintlify.com/docs`
+> Keep this Mintlify site focused on the public Open Chat Widget setup flow.
+> Use the Mintlify skill or current Mintlify docs when you need component or configuration details.
 
 # Documentation project instructions
 
@@ -8,26 +7,31 @@
 
 - This is a documentation site built on [Mintlify](https://mintlify.com)
 - Pages are MDX files with YAML frontmatter
-- Configuration lives in `docs.json`
-- Run `mint dev` to preview locally
-- Run `mint broken-links` to check links
+- Site configuration lives in `docs/docs.json`
+- The primary getting-started flow is `index`, `installation`, `create-an-agent`, and `examples`
+- The public package name is `@openchatwidget/sdk`
+- The main example apps live in `examples/basic-react-express-app` and `examples/nextjs-landing-page`
 
 ## Terminology
 
-{/* Add product-specific terms and preferred usage */}
-{/* Example: Use "workspace" not "project", "member" not "user" */}
+- Use "Open Chat Widget" as the product name and "widget" on second reference
+- Use "agent" for the AI backend and "streaming endpoint" for the HTTP route the widget calls
+- Use "mount the widget" instead of "inject" or "drop in"
+- Use "React app" and "Next.js app" when referring to the supported repo examples
 
 ## Style preferences
 
-{/* Add any project-specific style rules below */}
-
 - Use active voice and second person ("you")
-- Keep sentences concise — one idea per sentence
-- Use sentence case for headings
-- Bold for UI elements: Click **Settings**
-- Code formatting for file names, commands, paths, and code references
+- Keep sentences concise and concrete
+- Lead with the next action the reader should take
+- Prefer code that matches this repo over invented abstractions
+- Use exact package names, env vars, and endpoint paths from the repo: `@openchatwidget/sdk`, `OPENAI_API_KEY`, and `/api/chat`
+- When referencing examples, use the actual folder names in this repo
 
 ## Content boundaries
 
-{/* Define what should and shouldn't be documented */}
-{/* Example: Don't document internal admin features */}
+- Document the public SDK, setup flow, and example apps
+- Favor Vercel AI SDK patterns that match the existing repo examples
+- Do not document roadmap items as shipped features
+- Do not document internal-only experiments or unpublished APIs
+- Avoid compatibility claims that are not backed by the code in this repo

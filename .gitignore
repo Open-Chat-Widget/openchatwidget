@@ -29,3 +29,5 @@ Thumbs.db
 .vscode/
 
 MANIFEST.md
+
+.agents/
