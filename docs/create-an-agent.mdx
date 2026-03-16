@@ -1,5 +1,5 @@
 ---
-title: "Create an agent"
+title: "Create a Basic Agent"
 description: "Build your first agent and expose a streaming endpoint"
 ---
 
@@ -56,30 +56,17 @@ app.listen(8787, () => {
 
   </Step>
   <Step title="Test the full loop">
-    Your chat widget should now be connected to your AI agent. Make sure to bring your own API keys from your favorite LLM provider.
+    Your chat widget should now be connected to your AI agent. Go back to your widget, you should be now be able to chat with your agent. Make sure to bring your own API keys from your favorite LLM provider.
   </Step>
 </Steps>
 
-## Compatibility
+Now that we've build a basic agent, we can now learn how to build more capable agents that can complete entire workflows. We can build things like customer support agents, research agents with web search, in-product agents like Figma Make, and more. Head to the next section to learn how to do that. 
 
-Agents built with AI SDK are compatible with any Node.js environment. Some common hosting patterns:
-
-- **Express** — [Railway](https://railway.app), [Render](https://render.com), [Fly.io](https://fly.io), or any Node host (VPS, Docker).
-- **Hono** — [Vercel](https://vercel.com) (Node or Edge), [Cloudflare Workers](https://workers.cloudflare.com), or a Node host.
-- **Vercel** — Next.js API routes or standalone serverless functions using the AI SDK.
-- **AWS** — [AWS Lambda](https://aws.amazon.com/lambda/) (e.g. with Serverless Framework or SST) with a Node runtime. 
-
-As long as the server exposes an endpoint, the widget will be able to connect to it. 
-
-## Building a custom agent 
-
-Open Chat Widget is compatible with any agent built with Vercel AI SDK. With AI SDK, you can build agents with: 
-
-- **Web search agent** — Answers questions using live web search so responses stay up to date.
-- **Tool / MCP agent** — Calls APIs, databases, or external services via tools or [Model Context Protocol (MCP)](https://sdk.vercel.ai/docs/ai-sdk-core/mcp-tools).
-- **RAG agent** — Uses embeddings and retrieval to answer from your own docs, knowledge base, or data.
-- **Code assistant** — Uses tools to run code, read files, or search the codebase.
-- **Customer support agent** — Combines a knowledge base with tools for tickets, account lookups, or workflows.
-- **Multi-step agent** — Chains tool calls and reasoning over many steps (e.g. plan → search → summarize) using the AI SDK agent loop. 
-
-We highly recommend reading [Vercel AI SDK documentation](https://sdk.vercel.ai/docs) to understand the full capabilities of the framework.
+<Card
+  title="Building capable agents"
+  icon="arrow-right"
+  href="/agent-use-cases"
+  horizontal
+>
+  Explore real-world agent use cases and the kinds of assistants you can build with Open Chat Widget.
+</Card>

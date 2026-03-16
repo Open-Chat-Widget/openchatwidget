@@ -15,8 +15,22 @@
         "pages": [
           "index",
           "installation",
-          "create-an-agent",
-          "examples"
+          "create-an-agent"
+        ]
+      },
+      {
+        "group": "Building agents",
+        "pages": [
+          "agent-use-cases",
+          "compatibility"
+        ]
+      },
+      {
+        "group": "Examples",
+        "pages": [
+          "examples",
+          "example-nextjs-landing-page",
+          "example-basic-react-express-app"
         ]
       }
     ],

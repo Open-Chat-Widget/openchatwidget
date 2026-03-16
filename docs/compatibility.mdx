@@ -1,0 +1,13 @@
+---
+title: "Hosting Compatibility"
+description: "See which runtimes and hosting patterns work well for Open Chat Widget agents."
+---
+
+Agents built with AI SDK are compatible with any Node.js environment. Some common hosting patterns:
+
+- **Express** — [Railway](https://railway.app), [Render](https://render.com), [Fly.io](https://fly.io), or any Node host (VPS, Docker).
+- **Hono** — [Vercel](https://vercel.com) (Node or Edge), [Cloudflare Workers](https://workers.cloudflare.com), or a Node host.
+- **Vercel** — Next.js API routes or standalone serverless functions using the AI SDK.
+- **AWS** — [AWS Lambda](https://aws.amazon.com/lambda/) (e.g. with Serverless Framework or SST) with a Node runtime.
+
+As long as the server exposes an endpoint, the widget will be able to connect to it.

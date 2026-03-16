@@ -8,7 +8,9 @@
 - This is a documentation site built on [Mintlify](https://mintlify.com)
 - Pages are MDX files with YAML frontmatter
 - Site configuration lives in `docs/docs.json`
-- The primary getting-started flow is `index`, `installation`, `create-an-agent`, and `examples`
+- The primary getting-started flow is `index`, `installation`, and `create-an-agent`
+- The building-agents section currently contains `agent-use-cases` and `compatibility`
+- The examples section currently contains `examples`, `example-nextjs-landing-page`, and `example-basic-react-express-app`
 - The public package name is `@openchatwidget/sdk`
 - The main example apps live in `examples/basic-react-express-app` and `examples/nextjs-landing-page`
 
