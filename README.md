@@ -1,5 +1,9 @@
 <div align="center">
-  <img src="public/open-chat-widget-banner.png" alt="OpenChatWidget banner" width="100%" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="public/open-chat-widget-logo-dark-mode.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="public/open-chat-widget-logo-light-mode.svg" />
+    <img src="public/open-chat-widget-logo-light-mode.svg" alt="OpenChatWidget logo" width="50%" />
+  </picture>
 
   <p>
     <a href="https://www.npmjs.com/package/@openchatwidget/sdk">
@@ -14,13 +18,17 @@
   </p>
 </div>
 
-Open Chat Widget lets you embed a ChatGPT-like AI chat assistant into your site. Use it for customer service (free Intercom Fin alternative), knowledge base / documentation search, onboarding assistant, and more. Build great AI chat experiences for your users.  
+Open Chat Widget is a ChatGPT-like AI chat widget for your website. You build your own custom agent, the chat widget handles the UX and plumbing.
 
-- **Plug and play** - One component for feature-rich AI chat that works out of the box. Minimal set up required.
+Use it to build service agents (free Intercom Fin alternative), knowledge base & documentation search, onboarding assistants, and more. If you're looking to build great AI chat experiences for your users, this is it.   
 
-- **Bring your own agent** — Build custom agents with Vercel AI SDK. Point the widget at your agent streaming endpoint. Works with existing AI SDK agents. 
+### Why Open Chat Widget
 
-- **Framework-agnostic** — React, Next.js, Vue, WordPress, Shopify, Wix. Plugs in to any web framework or website platform.
+- **Plug and play** - A single component you drop in to your website. You get access to feature rich AI chat with text streaming, web search, tool use, etc. out of the box. Set up is a few lines of code. 
+
+- **Build any AI agent** — Build custom agents with [Vercel AI SDK](https://ai-sdk.dev/). Use any LLM model and create custom workflows. Works directly with existing AI-SDK endpoints. 
+
+- **Framework-agnostic** — Plugs in to any web framework or website platform: React, Next.js, Vue, WordPress, Shopify, Wix. 
 
 - **Open source** — MIT licensed. Free forever. You own your data and infrastructure. 
 
@@ -28,7 +36,7 @@ Open Chat Widget lets you embed a ChatGPT-like AI chat assistant into your site.
   <img src="public/product-demo-2.png" alt="Open Chat Widget product demo — product identification and customer service chat" width="100%" />
 </div> 
 
-## 🚀 Quick Start (React / Next.js)
+## 🚀 Quick Start - React / Next.js
 
 ### Step 1: Install the SDK
 Install the widget in your React app:
@@ -106,15 +114,14 @@ We've included some examples of Open Chat Widget installed in web app projects a
 - [`examples/vite-express-app`](./examples/vite-express-app): Open Chat Widget installed in a React + Vite frontend with an Express backend. 
 - [`examples/nextjs-landing-page`](./examples/nextjs-landing-page): Open Chat Widget installed on a Next.js app with API Routes. This is the live landing page too. 
 
-## Roadmap
+## [Roadmap](./ROADMAP.md)
 
-[See ROADMAP.md](./ROADMAP.md)
+Read our roadmap to see what features are coming next. If you're interested in contributing, this is a great place to start to see what work needs to be done. 
 
-## 🤝 Community
+## [Community](https://discord.gg/jA4vcJKECy)
 
-- [Discord](https://discord.gg/jA4vcJKECy)
-- [CONTRIBUTING.md](CONTRIBUTING.md)
+Join our Discord! That's where the community hangs out. Share your projects, ask quesitons, or just hang out with us! 
 
-## 📄 License
+## [License](./LICENSE)
 
-Open Source MIT. See [LICENSE](./LICENSE).
+Open source MIT license. 

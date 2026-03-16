@@ -1,19 +1,13 @@
 ---
 title: "Create an agent"
-description: "Build a minimal Vercel AI SDK backend and expose a streaming endpoint for Open Chat Widget."
+description: "Build your first agent and expose a streaming endpoint"
 ---
 
-Once the widget is mounted, the only required backend contract is a streaming chat endpoint. The example below uses Express, the Vercel AI SDK, and the helper exports from `@openchatwidget/sdk`.
-
-<Info>
-  **Environment variables**:
-  - Set `OPENAI_API_KEY` before starting the server.
-  - The example below exposes `POST /api/chat` on `http://localhost:8787`.
-</Info>
+Open Chat Widget uses Vercel AI SDK to build agents. To create an agent and expose a streaming endpoint, choose your favorite Node backend framework, such as Express or Hono. Let's go over how to set up a basic agent in Express and connect it to the widget. 
 
 <Steps>
   <Step title="Create the server">
-
+  Expose a `/api/chat` API endpoint with Express. Use Vercel AI SDK to create a `streamText` agent. Return the stream value. 
 ```ts
 import "dotenv/config";
 import cors from "cors";
@@ -54,34 +48,38 @@ app.listen(8787, () => {
   </Step>
   <Step title="Connect the widget">
 
+    Paste the streaming URL endpoint into the `<OpenChatWidget />` UI component:
+
 ```tsx
 <OpenChatWidget url="http://localhost:8787/api/chat" />
 ```
 
   </Step>
   <Step title="Test the full loop">
-    Start your frontend and backend. Open the site, send a message, and confirm that the widget streams responses from your agent.
+    Your chat widget should now be connected to your AI agent. Make sure to bring your own API keys from your favorite LLM provider.
   </Step>
 </Steps>
 
-## Why this endpoint works
+## Compatibility
 
-- `messages` come from the widget in AI SDK UI message format.
-- `convertToModelMessages()` converts those messages into model-ready input.
-- `streamText()` generates a streaming response.
-- `pipeUIMessageStreamToResponse()` sends the stream back in the format the widget expects.
+Agents built with AI SDK are compatible with any Node.js environment. Some common hosting patterns:
 
-<AccordionGroup>
-  <Accordion title="Prefer Next.js App Router?">
-    Use a route handler like `app/api/chat/route.ts` and return `result.toUIMessageStreamResponse()`. The repo includes a working example in `examples/nextjs-landing-page`.
-  </Accordion>
-</AccordionGroup>
+- **Express** — [Railway](https://railway.app), [Render](https://render.com), [Fly.io](https://fly.io), or any Node host (VPS, Docker).
+- **Hono** — [Vercel](https://vercel.com) (Node or Edge), [Cloudflare Workers](https://workers.cloudflare.com), or a Node host.
+- **Vercel** — Next.js API routes or standalone serverless functions using the AI SDK.
+- **AWS** — [AWS Lambda](https://aws.amazon.com/lambda/) (e.g. with Serverless Framework or SST) with a Node runtime. 
 
-<Card
-  title="See working examples"
-  icon="arrow-right"
-  href="/examples"
-  horizontal
->
-  Compare the Express example and the Next.js landing page example before you build your own.
-</Card>
+As long as the server exposes an endpoint, the widget will be able to connect to it. 
+
+## Building a custom agent 
+
+Open Chat Widget is compatible with any agent built with Vercel AI SDK. With AI SDK, you can build agents with: 
+
+- **Web search agent** — Answers questions using live web search so responses stay up to date.
+- **Tool / MCP agent** — Calls APIs, databases, or external services via tools or [Model Context Protocol (MCP)](https://sdk.vercel.ai/docs/ai-sdk-core/mcp-tools).
+- **RAG agent** — Uses embeddings and retrieval to answer from your own docs, knowledge base, or data.
+- **Code assistant** — Uses tools to run code, read files, or search the codebase.
+- **Customer support agent** — Combines a knowledge base with tools for tickets, account lookups, or workflows.
+- **Multi-step agent** — Chains tool calls and reasoning over many steps (e.g. plan → search → summarize) using the AI SDK agent loop. 
+
+We highly recommend reading [Vercel AI SDK documentation](https://sdk.vercel.ai/docs) to understand the full capabilities of the framework.
