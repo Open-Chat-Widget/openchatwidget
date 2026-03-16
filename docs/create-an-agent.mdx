@@ -1,0 +1,72 @@
+---
+title: "Create a Basic Agent"
+description: "Build your first agent and expose a streaming endpoint"
+---
+
+Open Chat Widget uses Vercel AI SDK to build agents. To create an agent and expose a streaming endpoint, choose your favorite Node backend framework, such as Express or Hono. Let's go over how to set up a basic agent in Express and connect it to the widget. 
+
+<Steps>
+  <Step title="Create the server">
+  Expose a `/api/chat` API endpoint with Express. Use Vercel AI SDK to create a `streamText` agent. Return the stream value. 
+```ts
+import "dotenv/config";
+import cors from "cors";
+import express from "express";
+import {
+  convertToModelMessages,
+  createOpenAI,
+  streamText,
+  type UIMessage,
+} from "@openchatwidget/sdk";
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+app.post("/api/chat", async (request, response) => {
+  const { messages } = request.body as { messages: UIMessage[] };
+
+  const openai = createOpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+
+  const result = streamText({
+    model: openai("gpt-4o-mini"),
+    system: "You are the Open Chat Widget example assistant. Keep answers concise and useful.",
+    messages: await convertToModelMessages(messages),
+  });
+
+  result.pipeUIMessageStreamToResponse(response);
+});
+
+app.listen(8787, () => {
+  console.log("Express agent listening on http://localhost:8787");
+});
+```
+
+  </Step>
+  <Step title="Connect the widget">
+
+    Paste the streaming URL endpoint into the `<OpenChatWidget />` UI component:
+
+```tsx
+<OpenChatWidget url="http://localhost:8787/api/chat" />
+```
+
+  </Step>
+  <Step title="Test the full loop">
+    Your chat widget should now be connected to your AI agent. Go back to your widget, you should be now be able to chat with your agent. Make sure to bring your own API keys from your favorite LLM provider.
+  </Step>
+</Steps>
+
+Now that we've build a basic agent, we can now learn how to build more capable agents that can complete entire workflows. We can build things like customer support agents, research agents with web search, in-product agents like Figma Make, and more. Head to the next section to learn how to do that. 
+
+<Card
+  title="Building capable agents"
+  icon="arrow-right"
+  href="/agent-use-cases"
+  horizontal
+>
+  Explore real-world agent use cases and the kinds of assistants you can build with Open Chat Widget.
+</Card>

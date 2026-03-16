@@ -1,0 +1,51 @@
+---
+title: "Examples Overview"
+description: "Browse the example repos included with Open Chat Widget and choose the setup closest to your stack."
+---
+
+We've included some examples of Open Chat Widget installed in web app projects as reference:
+
+<Frame>
+  <img
+    src="/images/widget-screenshot.png"
+    alt="Open Chat Widget opened on the Next.js landing page example."
+    style={{ borderRadius: "0.75rem" }}
+  />
+</Frame>
+
+## Next.js landing page
+
+<Card
+  title="Next.js landing page"
+  icon="code"
+  href="/example-nextjs-landing-page"
+  horizontal
+>
+  Use the same setup as the repo's landing page: a Next.js App Router app with a serverless `POST /api/chat` route and the widget mounted on the page.
+</Card>
+
+- `examples/nextjs-landing-page`: Open Chat Widget installed on a Next.js app with API Routes. This is the live landing page too.
+
+## React + Express example
+
+<Card
+  title="React + Express example"
+  icon="server"
+  href="/example-basic-react-express-app"
+  horizontal
+>
+  Use this example when you want the frontend and agent server separated.
+</Card>
+
+- `examples/basic-react-express-app`: Open Chat Widget installed in a React + Vite frontend with an Express backend.
+
+## Which example should you start from?
+
+<CardGroup cols={2}>
+  <Card title="Use the Next.js example" icon="code">
+    Start here if your app already uses App Router and you want the widget and route handler in one project.
+  </Card>
+  <Card title="Use the Express example" icon="server">
+    Start here if you want a standalone backend or you need to keep the agent outside the frontend app.
+  </Card>
+</CardGroup>

@@ -1,0 +1,25 @@
+import { OpenChatWidget } from "@openchatwidget/sdk";
+
+const chatApiUrl =
+  import.meta.env.VITE_CHAT_API_URL ?? "http://localhost:8787/api/chat";
+
+export default function App() {
+  return (
+    <main className="page">
+      <section className="card">
+        <h1>OpenChatWidget + Vite + Express</h1>
+        <p>
+          This page mounts the SDK client widget and points it at a local
+          Express agent endpoint.
+        </p>
+        <p>
+          Frontend: <code>http://localhost:5173</code>
+        </p>
+        <p>
+          Agent API: <code>{chatApiUrl}</code>
+        </p>
+      </section>
+      <OpenChatWidget url={chatApiUrl} />
+    </main>
+  );
+}

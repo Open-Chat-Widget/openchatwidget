@@ -1,0 +1,85 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Open Chat Widget",
+  "colors": {
+    "primary": "#00E46A",
+    "light": "#18E299",
+    "dark": "#0C8C5E"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": {
+    "groups": [
+      {
+        "group": "Getting started",
+        "pages": [
+          "index",
+          "installation",
+          "create-an-agent"
+        ]
+      },
+      {
+        "group": "Building agents",
+        "pages": [
+          "agent-use-cases",
+          "compatibility"
+        ]
+      },
+      {
+        "group": "Examples",
+        "pages": [
+          "examples",
+          "example-nextjs-landing-page",
+          "example-basic-react-express-app"
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "npm",
+          "href": "https://www.npmjs.com/package/@openchatwidget/sdk",
+          "icon": "box"
+        },
+        {
+          "anchor": "GitHub",
+          "href": "https://github.com/Open-Chat-Widget/openchatwidget",
+          "icon": "github"
+        }
+      ]
+    }
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/Open-Chat-Widget/openchatwidget"
+      },
+      {
+        "label": "Discord",
+        "href": "https://discord.gg/jA4vcJKECy"
+      }
+    ]
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/Open-Chat-Widget/openchatwidget"
+    }
+  }
+}
