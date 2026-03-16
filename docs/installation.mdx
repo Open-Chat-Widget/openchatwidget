@@ -1,7 +1,9 @@
 ---
 title: "Installation"
-description: "Install the widget on your front end."
+description: "How to install it on your app"
 ---
+
+## Step 1: Install the SDK
 
 <Steps>
   <Step title="Install the package">
@@ -13,22 +15,24 @@ npm i @openchatwidget/sdk
   </Step>
   <Step title="Embed the widget in your React app">
 
+    Then embed the component anywhere in your project. A common pattern is to mount it in your main app layout so it appears across your site.
+
 ```tsx
 import { OpenChatWidget } from "@openchatwidget/sdk";
 
-export default function App() {
+export default function MySite() {
   return (
     <>
-      <main>{/* your app */}</main>
-      <OpenChatWidget url="<AGENT_STREAMING_ENDPOINT>" />
+      ...
+      <OpenChatWidget url="<YOUR_AGENT_STREAMING_ENDPOINT>" />
     </>
   );
 }
 ```
 
   </Step>
-  <Step title="Connect widget to streaming endpoint">
-    The `url` prop should point to the chat endpoint that powers your agent. We'll cover how to create a basic agent and expose a streaming endpoint in the next step.
+  <Step title="Connect widget to agent">
+    The `url` prop should point to the chat endpoint that powers your agent. We'll cover how to create an agent and expose a streaming endpoint in the next section.
   </Step>
 </Steps>
 
