@@ -1,0 +1,51 @@
+---
+title: "Reasoning"
+description: "How reasoning summaries appear in Open Chat Widget and how to turn them off"
+---
+
+Reasoning is the widget's UI for AI SDK `reasoning` parts. When your backend streams reasoning summaries alongside the assistant response, Open Chat Widget shows a compact `Thinking...` row above the final answer. While the model is still working, that row animates subtly. After the stream finishes, it switches to a completed state like `Thought for 2s...`.
+
+Clicking the reasoning row expands the streamed reasoning text. The expanded content is intentionally quiet and secondary so it does not overpower the main assistant response.
+
+## What It Looks Like
+
+- A small `Thinking...` disclosure appears above the assistant message while reasoning is streaming.
+- A subtle caret shows whether the reasoning block is open or closed.
+- When reasoning is done, the label changes to `Thought for Xs...`.
+- The reasoning text stays collapsible and separate from the main response body.
+
+## Backend Requirements
+
+Your backend must stream AI SDK `reasoning` parts for the widget to show reasoning.
+
+```ts
+const result = streamText({
+  model: openai("gpt-5-mini"),
+  messages: await convertToModelMessages(messages),
+  providerOptions: {
+    openai: {
+      reasoningEffort: "medium",
+      reasoningSummary: "detailed",
+    },
+  },
+});
+
+result.pipeUIMessageStreamToResponse(response, {
+  sendReasoning: true,
+});
+```
+
+If your backend only streams text, the widget renders a normal chat conversation without a reasoning block.
+
+## Disable Reasoning
+
+If you do not want reasoning to appear in the widget, pass `disableReasoning` on the root component:
+
+```tsx
+<OpenChatWidget
+  url="http://localhost:8787/api/chat"
+  disableReasoning
+/>
+```
+
+This only disables reasoning in the UI. Your backend contract does not need to change.

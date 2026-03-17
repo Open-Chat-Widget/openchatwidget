@@ -72,7 +72,9 @@ export function Response({ text, className }: ResponseProps) {
               {children}
             </pre>
           ),
-          hr: () => <hr className="ocw:my-4 ocw:border-0 ocw:border-t ocw:border-slate-200" />,
+          hr: () => (
+            <hr className="ocw:my-4 ocw:border-0 ocw:border-t ocw:border-slate-200" />
+          ),
           table: ({ children }) => (
             <div className="ocw:mb-3 ocw:overflow-x-auto ocw:last:mb-0">
               <table className="ocw:min-w-full ocw:border-collapse ocw:text-sm">

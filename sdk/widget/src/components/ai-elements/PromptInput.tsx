@@ -20,7 +20,13 @@ const POWERED_BY_LOGO_SRC = HELPFUL_CHAT_LOGO_DATA_URI;
 
 function SendIcon() {
   return (
-    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      width="17"
+      height="17"
+      fill="none"
+      aria-hidden="true"
+    >
       <path
         d="M12 19V5m0 0-5 5m5-5 5 5"
         stroke="currentColor"

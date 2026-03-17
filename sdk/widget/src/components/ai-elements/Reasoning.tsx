@@ -32,11 +32,7 @@ function Chevron({ open }: { open: boolean }) {
   );
 }
 
-export function Reasoning({
-  text,
-  isStreaming,
-  className,
-}: ReasoningProps) {
+export function Reasoning({ text, isStreaming, className }: ReasoningProps) {
   const [userOpen, setUserOpen] = React.useState<boolean | null>(null);
   const isOpen = userOpen ?? isStreaming;
   const hasText = text.trim().length > 0;
