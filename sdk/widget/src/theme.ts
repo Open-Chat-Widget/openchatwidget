@@ -56,5 +56,14 @@ ${scopeSelector} textarea {
     transform: translateY(0);
   }
 }
+
+@keyframes helpfulChatReasoningShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
 `;
 }

@@ -11,7 +11,6 @@ import {
   HELPFUL_CHAT_LOGO_DATA_URI,
   buildOpenChatWidgetThemeCss,
 } from "./theme";
-import { extractMessageText } from "./utils/chat";
 
 const MOBILE_BREAKPOINT_PX = 768;
 const DEFAULT_TITLE = "Helpful Chat";
@@ -19,9 +18,13 @@ const DEFAULT_PLACEHOLDER = "Ask a question...";
 
 export type OpenChatWidgetProps = {
   url: string;
+  disableReasoning?: boolean;
 };
 
-export function OpenChatWidget({ url }: OpenChatWidgetProps) {
+export function OpenChatWidget({
+  url,
+  disableReasoning = false,
+}: OpenChatWidgetProps) {
   const [input, setInput] = React.useState("");
   const [isOpen, setIsOpen] = React.useState(false);
   const [isInputFocused, setIsInputFocused] = React.useState(false);
@@ -291,10 +294,9 @@ export function OpenChatWidget({ url }: OpenChatWidgetProps) {
             error={error}
             isMobileViewport={isMobileViewport}
             messageContainerRef={messageListRef}
-            getMessageText={(parts) => extractMessageText({ parts })}
+            disableReasoning={disableReasoning}
             renderMarkdown={(text) => <MarkdownMessage text={text} />}
             emptyState={emptyState}
-            hasApiKey
           />
           <Composer
             input={input}

@@ -1,6 +1,6 @@
 <img src="../public/open-chat-widget-banner.png" alt="OpenChatWidget banner" width="100%" />
 
-OpenChatWidget lets you embed a ChatGPT-like AI chat widget into your website. Connect the widget to any AI agent you build, any LLM model. It's free, open source, and self hosted. You own the entire stack. 
+OpenChatWidget lets you embed a ChatGPT-like AI chat widget into your website. Connect it to any AI agent you build and any LLM model that can stream AI SDK UI messages. It's free, open source, and self hosted. You own the entire stack. 
 
 If you want to bring agentic chat to your product, this is it. Get started with only a few lines of code. 
 
@@ -27,7 +27,7 @@ Install the widget in your React app:
 npm install @openchatwidget/sdk
 ```
 
-Embed the component anywhere in your project. A common pattern is to mount it in your main app layout so it appears across your site.
+Embed the component anywhere in your project. A common pattern is to mount it in your main app layout so it appears across your site. The packaged widget ships with its own bundled CSS, so you do not need to configure Tailwind in your app to use it.
 
 ```tsx
 import { OpenChatWidget } from "@openchatwidget/sdk";
@@ -49,7 +49,7 @@ export default function App() {
 
 The next step is to set up your AI agent backend. Create an API endpoint with your favorite Node backend framework, such as Express or Hono.
 
-Here's a simple text stream agent: 
+Here's a simple AI SDK UI stream agent:
 ```tsx
 app.use(express.json());
 app.post("/api/chat", async (request, response) => {
@@ -60,7 +60,7 @@ app.post("/api/chat", async (request, response) => {
   });
 
   const result = streamText({
-    model: openai("gpt-4o-mini"),
+    model: openai("gpt-5-mini"),
     system: "You are the OpenChatWidget example assistant. Keep answers concise and useful.",
     messages: await convertToModelMessages(messages),
   });
@@ -91,11 +91,9 @@ For a working basic example, check out [`examples/vite-express-app`](./examples/
 ## Stack 
 Open Chat Widget is a simple UI wrapper around [Vercel AI-SDK](https://ai-sdk.dev/docs/introduction). When building your backend AI agent, all capabilities from AI-SDK are compatible with Open Chat Widget. 
 
-- Front end is written in React / Typescript 
-- Agentic chat powered by Vercel AI SDK. 
-
-### Why AI-SDK? 
-We want to be opiniated on how 
+- Front end is written in React / Typescript
+- Chat UI is styled with bundled Tailwind 4 CSS
+- Agentic chat is powered by Vercel AI SDK UI message streams
 
 ## 📦 Examples
 

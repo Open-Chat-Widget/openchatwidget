@@ -32,6 +32,12 @@
           "example-nextjs-landing-page",
           "example-basic-react-express-app"
         ]
+      },
+      {
+        "group": "Features",
+        "pages": [
+          "features/reasoning"
+        ]
       }
     ],
     "global": {

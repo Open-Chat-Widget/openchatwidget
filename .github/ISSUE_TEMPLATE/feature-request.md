@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: "Suggest a new feature for MCPJam "
+about: "Suggest a new feature for Open Chat Widget "
 title: "[FEATURE]"
 labels: ""
 assignees: matteo8p
