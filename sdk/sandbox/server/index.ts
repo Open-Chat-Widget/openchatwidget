@@ -34,12 +34,21 @@ app.post("/api/chat", async (request, response) => {
   });
 
   const result = streamText({
-    model: openai("gpt-4o-mini"),
-    system: "You are the OpenChatWidget example assistant. Keep answers concise and useful.",
+    model: openai("gpt-5-mini"),
+    system:
+      "You are the OpenChatWidget example assistant. Keep answers concise and useful.",
     messages: await convertToModelMessages(messages),
+    providerOptions: {
+      openai: {
+        reasoningEffort: "medium",
+        reasoningSummary: "detailed",
+      },
+    },
   });
 
-  result.pipeUIMessageStreamToResponse(response);
+  result.pipeUIMessageStreamToResponse(response, {
+    sendReasoning: true,
+  });
 });
 
 app.listen(8787, () => {

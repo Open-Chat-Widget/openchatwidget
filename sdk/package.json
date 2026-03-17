@@ -8,6 +8,17 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "style": "dist/index.css",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/index.css"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
   "files": [
     "dist",
     "README.md"
@@ -16,8 +27,8 @@
     "dev": "concurrently --kill-others-on-fail \"npm:dev:client\" \"npm:dev:server\"",
     "dev:client": "vite --config sandbox/vite.config.ts --host 127.0.0.1",
     "dev:server": "node --import tsx sandbox/server/index.ts",
-    "build": "tsup --config tsup.config.ts",
-    "build:client": "tsup --config tsup.config.ts --entry widget/src/index.ts --out-dir dist",
+    "build": "vite build && node ./scripts/postbuild.mjs && tsc --project tsconfig.build.json",
+    "build:client": "vite build",
     "lint": "eslint widget/src --ext .ts,.tsx --max-warnings=0",
     "format": "prettier --write \"widget/src/**/*.{ts,tsx}\"",
     "format:check": "prettier --check \"widget/src/**/*.{ts,tsx}\""
@@ -41,20 +52,21 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/node": "^24.10.1",
+    "@tailwindcss/vite": "^4.2.1",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
+    "@types/node": "^24.10.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^4.3.4",
     "concurrently": "^9.2.1",
-    "eslint": "^10.0.3",
     "cors": "^2.8.5",
     "dotenv": "^17.2.0",
+    "eslint": "^10.0.3",
     "express": "^5.1.0",
     "globals": "^17.4.0",
     "prettier": "^3.6.2",
-    "tsup": "^8.5.1",
+    "tailwindcss": "^4.2.1",
     "tsx": "^4.7.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.57.1",

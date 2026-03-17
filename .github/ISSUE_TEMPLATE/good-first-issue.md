@@ -16,4 +16,4 @@ Step by steps on how to fix, with hints. Since it's a good first issue, describe
 
 # First time contributing?
 
-Please checkout our [CONTRIBUTING.md](https://github.com/MCPJam/inspector/blob/main/CONTRIBUTING.md) for instructions on how to set up as a contributor.
+Please checkout our [CONTRIBUTING.md](https://github.com/Open Chat Widget/inspector/blob/main/CONTRIBUTING.md) for instructions on how to set up as a contributor.

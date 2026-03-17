@@ -1,47 +1,178 @@
 import * as React from "react";
-
-type MessageListMessage = {
-  id: string;
-  role: string;
-  parts: ReadonlyArray<unknown>;
-};
-
-type MessageDecoration = {
-  isSystem?: boolean;
-  avatarUrl?: string;
-  avatarFallbackLabel?: string;
-  assistantBubble?: boolean;
-  messageTimestampLabel?: string;
-};
+import type { UIMessage } from "ai";
+import { HELPFUL_CHAT_LOGO_DATA_URI } from "../theme";
+import {
+  extractRenderableUserText,
+  hasStreamingAssistantParts,
+  isReasoningPart,
+  isTextPart,
+} from "../utils/chat";
 
 type WidgetMessageListProps = {
-  messages: ReadonlyArray<MessageListMessage>;
+  messages: ReadonlyArray<UIMessage>;
   isGenerating: boolean;
   error?: Error;
   messageContainerRef: React.RefObject<HTMLDivElement | null>;
   isMobileViewport: boolean;
-  getMessageText: (parts: ReadonlyArray<unknown>) => string;
   renderMarkdown: (text: string) => React.ReactNode;
-  messageDecorations?: Record<string, MessageDecoration | undefined>;
-  hasApiKey?: boolean;
   emptyState?: React.ReactNode;
+  logoSrc?: string;
 };
 
-function getAvatarFallback(label?: string) {
-  if (!label || label.trim().length === 0) {
-    return "S";
-  }
+type RenderableAssistantPart =
+  | {
+      kind: "reasoning";
+      key: string;
+      text: string;
+      isStreaming: boolean;
+    }
+  | {
+      kind: "text";
+      key: string;
+      text: string;
+    };
 
-  const words = label
-    .trim()
-    .split(/\s+/)
-    .filter((value) => value.length > 0)
-    .slice(0, 2);
-  if (words.length === 0) {
-    return "S";
-  }
+function getRenderableAssistantParts(message: UIMessage) {
+  const renderableParts: RenderableAssistantPart[] = [];
 
-  return words.map((word) => word[0]?.toUpperCase() ?? "").join("");
+  message.parts.forEach((part, index) => {
+    if (isReasoningPart(part)) {
+      renderableParts.push({
+        kind: "reasoning",
+        key: `${message.id}-reasoning-${index}`,
+        text: part.text,
+        isStreaming: part.state === "streaming",
+      });
+      return;
+    }
+
+    if (isTextPart(part) && part.text.trim()) {
+      renderableParts.push({
+        kind: "text",
+        key: `${message.id}-text-${index}`,
+        text: part.text,
+      });
+    }
+  });
+
+  return renderableParts;
+}
+
+function ReasoningPanel({
+  text,
+  isStreaming,
+  renderMarkdown,
+}: {
+  text: string;
+  isStreaming: boolean;
+  renderMarkdown: (text: string) => React.ReactNode;
+}) {
+  const [userOpen, setUserOpen] = React.useState<boolean | null>(null);
+  const isOpen = userOpen ?? isStreaming;
+
+  return (
+    <section
+      style={{
+        width: "100%",
+        borderRadius: "16px",
+        border: "1px solid #e2e8f0",
+        background: "#f8fafc",
+        overflow: "hidden",
+      }}
+    >
+      <button
+        type="button"
+        onClick={() => setUserOpen((current) => !(current ?? isStreaming))}
+        aria-expanded={isOpen}
+        style={{
+          width: "100%",
+          border: "none",
+          background: "transparent",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: "12px",
+          padding: "10px 12px",
+          textAlign: "left",
+          cursor: "pointer",
+        }}
+      >
+        <span
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            minWidth: 0,
+          }}
+        >
+          <span
+            aria-hidden="true"
+            style={{
+              width: "8px",
+              height: "8px",
+              borderRadius: "9999px",
+              background: isStreaming ? "#10b981" : "#94a3b8",
+            }}
+          />
+          <span
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "1px",
+              minWidth: 0,
+            }}
+          >
+            <span
+              style={{
+                margin: 0,
+                color: "#0f172a",
+                fontSize: "13px",
+                lineHeight: 1.2,
+                fontWeight: 600,
+              }}
+            >
+              Chain of thought
+            </span>
+            <span
+              style={{
+                margin: 0,
+                color: "#64748b",
+                fontSize: "11px",
+                lineHeight: 1.2,
+              }}
+            >
+              {isStreaming ? "Streaming reasoning summary" : "Reasoning summary"}
+            </span>
+          </span>
+        </span>
+        <span
+          style={{
+            color: "#64748b",
+            fontSize: "11px",
+            lineHeight: 1.2,
+            fontWeight: 600,
+            flexShrink: 0,
+          }}
+        >
+          {isOpen ? "Hide" : "Show"}
+        </span>
+      </button>
+
+      {isOpen ? (
+        <div
+          style={{
+            borderTop: "1px solid #e2e8f0",
+            padding: "10px 12px 12px",
+            color: "#475569",
+            fontSize: "13px",
+            lineHeight: 1.45,
+          }}
+        >
+          {text.trim() ? renderMarkdown(text) : <p style={{ margin: 0 }}>Thinking...</p>}
+        </div>
+      ) : null}
+    </section>
+  );
 }
 
 export function MessageList({
@@ -50,12 +181,28 @@ export function MessageList({
   error,
   messageContainerRef,
   isMobileViewport,
-  getMessageText,
   renderMarkdown,
-  messageDecorations,
-  hasApiKey = true,
   emptyState,
+  logoSrc = HELPFUL_CHAT_LOGO_DATA_URI,
 }: WidgetMessageListProps) {
+  const visibleMessages = messages.filter((message) => {
+    if (message.role === "user") {
+      return extractRenderableUserText(message.parts).trim().length > 0;
+    }
+
+    if (message.role === "assistant") {
+      return getRenderableAssistantParts(message).length > 0;
+    }
+
+    return false;
+  });
+
+  const hasStreamingAssistantMessage = messages.some(
+    (message) =>
+      message.role === "assistant" && hasStreamingAssistantParts(message.parts),
+  );
+  const showPendingIndicator = isGenerating && !hasStreamingAssistantMessage;
+
   return (
     <div
       ref={messageContainerRef}
@@ -70,7 +217,7 @@ export function MessageList({
         flex: 1,
       }}
     >
-      {messages.length === 0 ? (
+      {visibleMessages.length === 0 ? (
         <div
           style={{
             padding: isMobileViewport ? "4px 2px 2px" : "2px 2px 4px",
@@ -85,66 +232,42 @@ export function MessageList({
         </div>
       ) : null}
 
-      {messages.map((message) => {
-        const text = getMessageText(message.parts);
-        if (!text.trim()) {
+      {visibleMessages.map((message) => {
+        if (message.role === "user") {
+          const text = extractRenderableUserText(message.parts);
+          if (!text.trim()) {
+            return null;
+          }
+
+          return (
+            <article
+              key={message.id}
+              style={{
+                alignSelf: "flex-end",
+                background: "#f3f4f6",
+                border: "none",
+                borderRadius: "20px",
+                padding: isMobileViewport ? "11px 14px" : "10px 14px",
+                maxWidth: isMobileViewport ? "90%" : "86%",
+                color: "#111827",
+                fontSize: isMobileViewport ? "16px" : "15px",
+                lineHeight: 1.5,
+                boxShadow: "none",
+              }}
+            >
+              <p style={{ margin: 0, whiteSpace: "pre-wrap" }}>{text}</p>
+            </article>
+          );
+        }
+
+        const assistantParts = getRenderableAssistantParts(message);
+        if (assistantParts.length === 0) {
           return null;
         }
 
-        const decoration = messageDecorations?.[message.id];
-        const isUser = message.role === "user";
-        const isSystem = Boolean(decoration?.isSystem);
-        const messageTimestampLabel = decoration?.messageTimestampLabel;
-        const showAssistantAvatar =
-          !isUser &&
-          !isSystem &&
-          Boolean(decoration?.avatarUrl || decoration?.assistantBubble);
-        const article = (
-          <article
-            style={{
-              alignSelf: isSystem
-                ? "center"
-                : isUser
-                  ? "flex-end"
-                  : "flex-start",
-              background: isSystem
-                ? "transparent"
-                : isUser
-                  ? "#f3f4f6"
-                  : "transparent",
-              border: "none",
-              borderRadius: isSystem ? "0" : isUser ? "20px" : "0",
-              padding: isSystem
-                ? "0"
-                : isUser
-                  ? isMobileViewport
-                    ? "11px 14px"
-                    : "10px 14px"
-                  : "0",
-              maxWidth: isSystem
-                ? "92%"
-                : isUser
-                  ? isMobileViewport
-                    ? "90%"
-                    : "86%"
-                  : showAssistantAvatar
-                    ? isMobileViewport
-                      ? "88%"
-                      : "84%"
-                    : "100%",
-              color: isSystem ? "#64748b" : "#111827",
-              fontStyle: isSystem ? "italic" : "normal",
-              fontSize: isSystem ? "13px" : isMobileViewport ? "16px" : "15px",
-              lineHeight: 1.5,
-              boxShadow: "none",
-            }}
-          >
-            {renderMarkdown(text)}
-          </article>
-        );
-
-        const messageBody = showAssistantAvatar ? (
+        return (
           <div
+            key={message.id}
             style={{
               alignSelf: "flex-start",
               display: "flex",
@@ -169,67 +292,66 @@ export function MessageList({
                 fontWeight: 600,
               }}
             >
-              {decoration?.avatarUrl ? (
-                <img
-                  src={decoration.avatarUrl}
-                  alt=""
-                  aria-hidden="true"
-                  width={26}
-                  height={26}
-                  style={{
-                    display: "block",
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-              ) : (
-                <span>
-                  {getAvatarFallback(decoration?.avatarFallbackLabel)}
-                </span>
-              )}
-            </div>
-            {article}
-          </div>
-        ) : (
-          article
-        );
-
-        return (
-          <div
-            key={message.id}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: messageTimestampLabel ? "3px" : "0",
-            }}
-          >
-            {messageBody}
-            {messageTimestampLabel ? (
-              <p
+              <img
+                src={logoSrc}
+                alt=""
+                aria-hidden="true"
+                width={26}
+                height={26}
                 style={{
-                  margin: 0,
-                  alignSelf: isSystem
-                    ? "center"
-                    : isUser
-                      ? "flex-end"
-                      : "flex-start",
-                  marginLeft:
-                    !isSystem && !isUser && showAssistantAvatar ? "34px" : "0",
-                  fontSize: "10px",
-                  lineHeight: 1.2,
-                  color: "#94a3b8",
-                  letterSpacing: "0.01em",
+                  display: "block",
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
                 }}
-              >
-                {messageTimestampLabel}
-              </p>
-            ) : null}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "10px",
+                maxWidth: isMobileViewport ? "88%" : "84%",
+              }}
+            >
+              {assistantParts.map((part) => {
+                if (part.kind === "reasoning") {
+                  return (
+                    <ReasoningPanel
+                      key={part.key}
+                      text={part.text}
+                      isStreaming={part.isStreaming}
+                      renderMarkdown={renderMarkdown}
+                    />
+                  );
+                }
+
+                return (
+                  <article
+                    key={part.key}
+                    style={{
+                      alignSelf: "flex-start",
+                      background: "transparent",
+                      border: "none",
+                      borderRadius: "0",
+                      padding: "0",
+                      maxWidth: "100%",
+                      color: "#111827",
+                      fontSize: isMobileViewport ? "16px" : "15px",
+                      lineHeight: 1.5,
+                      boxShadow: "none",
+                    }}
+                  >
+                    {renderMarkdown(part.text)}
+                  </article>
+                );
+              })}
+            </div>
           </div>
         );
       })}
 
-      {isGenerating ? (
+      {showPendingIndicator ? (
         <div
           aria-label="Assistant is responding"
           style={{
@@ -256,12 +378,6 @@ export function MessageList({
       {error ? (
         <p style={{ margin: 0, color: "#b91c1c", fontSize: "14px" }}>
           {error.message}
-        </p>
-      ) : null}
-
-      {!hasApiKey ? (
-        <p style={{ margin: 0, color: "#b91c1c", fontSize: "14px" }}>
-          Missing apiKey prop.
         </p>
       ) : null}
     </div>

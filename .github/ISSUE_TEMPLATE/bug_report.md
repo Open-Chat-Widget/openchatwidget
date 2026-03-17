@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Bug reports help make MCPJam better
+about: Bug reports help make Open Chat Widget better
 title: "[BUG]"
 labels: bug
 assignees: matteo8p

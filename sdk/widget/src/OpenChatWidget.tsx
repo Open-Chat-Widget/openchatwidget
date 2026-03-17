@@ -11,7 +11,6 @@ import {
   HELPFUL_CHAT_LOGO_DATA_URI,
   buildOpenChatWidgetThemeCss,
 } from "./theme";
-import { extractMessageText } from "./utils/chat";
 
 const MOBILE_BREAKPOINT_PX = 768;
 const DEFAULT_TITLE = "Helpful Chat";
@@ -291,10 +290,9 @@ export function OpenChatWidget({ url }: OpenChatWidgetProps) {
             error={error}
             isMobileViewport={isMobileViewport}
             messageContainerRef={messageListRef}
-            getMessageText={(parts) => extractMessageText({ parts })}
             renderMarkdown={(text) => <MarkdownMessage text={text} />}
             emptyState={emptyState}
-            hasApiKey
+            logoSrc={HELPFUL_CHAT_LOGO_DATA_URI}
           />
           <Composer
             input={input}

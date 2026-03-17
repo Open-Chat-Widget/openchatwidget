@@ -1,13 +1,15 @@
 # OpenChatWidget Examples
 
 This folder contains a minimal Vite + Express app wired to `OpenChatWidget`.
+The local Express agent uses a reasoning-capable OpenAI model so the widget's
+collapsible chain-of-thought UI is visible in the sandbox by default.
 
 ## Run it
 
 1. Install dependencies:
 
 ```bash
-cd /Users/matt8p/Desktop/openchatwidget/examples/basic-vite-express-app
+cd /Users/matt8p/Desktop/openchatwidget/sdk
 npm install
 ```
 
@@ -27,4 +29,4 @@ Frontend: `http://localhost:5173`
 API: `http://localhost:8787/api/chat`
 
 The landing page mounts `<OpenChatWidget />`, and the widget streams responses
-from the Express `POST /api/chat` endpoint.
+from the Express `POST /api/chat` endpoint, including AI SDK `reasoning` parts.
