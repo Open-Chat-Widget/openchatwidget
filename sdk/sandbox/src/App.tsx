@@ -4,6 +4,8 @@ const chatApiUrl =
   import.meta.env.VITE_CHAT_API_URL ?? "http://localhost:8787/api/chat";
 
 export default function App() {
+  const defaultNamedAgentUrl = "http://localhost:8787/api/chat/default";
+
   return (
     <main className="page">
       <section className="card">
@@ -17,6 +19,9 @@ export default function App() {
         </p>
         <p>
           Agent API: <code>{chatApiUrl}</code>
+        </p>
+        <p>
+          Named agent example: <code>{defaultNamedAgentUrl}</code>
         </p>
       </section>
       <OpenChatWidget url={chatApiUrl} />
