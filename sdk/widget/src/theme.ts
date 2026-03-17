@@ -3,7 +3,9 @@ export const HELPFUL_CHAT_LOGO_DATA_URI =
 
 const OPENCHAT_THEME_SCOPE = "[data-openchatwidget-root]";
 
-export function buildOpenChatWidgetThemeCss(scopeSelector = OPENCHAT_THEME_SCOPE) {
+export function buildOpenChatWidgetThemeCss(
+  scopeSelector = OPENCHAT_THEME_SCOPE,
+) {
   return `
 @import url("https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Space+Grotesk:wght@400;500;700&display=swap");
 

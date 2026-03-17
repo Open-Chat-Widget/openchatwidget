@@ -14,7 +14,10 @@
   ],
   "scripts": {
     "build": "tsup --config tsup.config.ts",
-    "build:client": "tsup --config tsup.config.ts --entry widget/src/index.ts --out-dir dist"
+    "build:client": "tsup --config tsup.config.ts --entry widget/src/index.ts --out-dir dist",
+    "lint": "eslint widget/src --ext .ts,.tsx --max-warnings=0",
+    "format": "prettier --write \"widget/src/**/*.{ts,tsx}\"",
+    "format:check": "prettier --check \"widget/src/**/*.{ts,tsx}\""
   },
   "keywords": [
     "ai",
@@ -34,11 +37,16 @@
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "eslint": "^10.0.3",
+    "globals": "^17.4.0",
+    "prettier": "^3.6.2",
     "tsup": "^8.5.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.1"
   },
   "peerDependencies": {
     "react": ">=18",

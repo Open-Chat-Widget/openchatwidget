@@ -90,7 +90,12 @@ export function WidgetPanel({
                   aria-hidden="true"
                   width={30}
                   height={30}
-                  style={{ display: "block", width: "100%", height: "100%", objectFit: "cover" }}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
                 />
               ) : (
                 <span>{activeSupport.name.slice(0, 1).toUpperCase()}</span>
@@ -141,7 +146,8 @@ export function WidgetPanel({
                   textOverflow: "ellipsis",
                 }}
               >
-                {activeSupport.statusLabel ?? (activeSupport.isOnline ? "Online now" : "Offline")}
+                {activeSupport.statusLabel ??
+                  (activeSupport.isOnline ? "Online now" : "Offline")}
               </p>
             </div>
           </div>

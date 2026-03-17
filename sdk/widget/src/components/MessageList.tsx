@@ -96,12 +96,22 @@ export function MessageList({
         const isSystem = Boolean(decoration?.isSystem);
         const messageTimestampLabel = decoration?.messageTimestampLabel;
         const showAssistantAvatar =
-          !isUser && !isSystem && Boolean(decoration?.avatarUrl || decoration?.assistantBubble);
+          !isUser &&
+          !isSystem &&
+          Boolean(decoration?.avatarUrl || decoration?.assistantBubble);
         const article = (
           <article
             style={{
-              alignSelf: isSystem ? "center" : isUser ? "flex-end" : "flex-start",
-              background: isSystem ? "transparent" : isUser ? "#f3f4f6" : "transparent",
+              alignSelf: isSystem
+                ? "center"
+                : isUser
+                  ? "flex-end"
+                  : "flex-start",
+              background: isSystem
+                ? "transparent"
+                : isUser
+                  ? "#f3f4f6"
+                  : "transparent",
               border: "none",
               borderRadius: isSystem ? "0" : isUser ? "20px" : "0",
               padding: isSystem
@@ -166,10 +176,17 @@ export function MessageList({
                   aria-hidden="true"
                   width={26}
                   height={26}
-                  style={{ display: "block", width: "100%", height: "100%", objectFit: "cover" }}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
                 />
               ) : (
-                <span>{getAvatarFallback(decoration?.avatarFallbackLabel)}</span>
+                <span>
+                  {getAvatarFallback(decoration?.avatarFallbackLabel)}
+                </span>
               )}
             </div>
             {article}
@@ -192,8 +209,13 @@ export function MessageList({
               <p
                 style={{
                   margin: 0,
-                  alignSelf: isSystem ? "center" : isUser ? "flex-end" : "flex-start",
-                  marginLeft: !isSystem && !isUser && showAssistantAvatar ? "34px" : "0",
+                  alignSelf: isSystem
+                    ? "center"
+                    : isUser
+                      ? "flex-end"
+                      : "flex-start",
+                  marginLeft:
+                    !isSystem && !isUser && showAssistantAvatar ? "34px" : "0",
                   fontSize: "10px",
                   lineHeight: 1.2,
                   color: "#94a3b8",
@@ -231,9 +253,17 @@ export function MessageList({
         </div>
       ) : null}
 
-      {error ? <p style={{ margin: 0, color: "#b91c1c", fontSize: "14px" }}>{error.message}</p> : null}
+      {error ? (
+        <p style={{ margin: 0, color: "#b91c1c", fontSize: "14px" }}>
+          {error.message}
+        </p>
+      ) : null}
 
-      {!hasApiKey ? <p style={{ margin: 0, color: "#b91c1c", fontSize: "14px" }}>Missing apiKey prop.</p> : null}
+      {!hasApiKey ? (
+        <p style={{ margin: 0, color: "#b91c1c", fontSize: "14px" }}>
+          Missing apiKey prop.
+        </p>
+      ) : null}
     </div>
   );
 }

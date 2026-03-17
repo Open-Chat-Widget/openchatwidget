@@ -6,21 +6,48 @@ export function MarkdownMessage({ text }: { text: string }) {
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       components={{
-        p: ({ children }) => <p style={{ margin: "0 0 10px", lineHeight: 1.5 }}>{children}</p>,
+        p: ({ children }) => (
+          <p style={{ margin: "0 0 10px", lineHeight: 1.5 }}>{children}</p>
+        ),
         h1: ({ children }) => (
-          <h1 style={{ margin: "0 0 10px", fontSize: "1.2rem", lineHeight: 1.3 }}>{children}</h1>
+          <h1
+            style={{ margin: "0 0 10px", fontSize: "1.2rem", lineHeight: 1.3 }}
+          >
+            {children}
+          </h1>
         ),
         h2: ({ children }) => (
-          <h2 style={{ margin: "0 0 10px", fontSize: "1.1rem", lineHeight: 1.3 }}>{children}</h2>
+          <h2
+            style={{ margin: "0 0 10px", fontSize: "1.1rem", lineHeight: 1.3 }}
+          >
+            {children}
+          </h2>
         ),
         h3: ({ children }) => (
-          <h3 style={{ margin: "0 0 10px", fontSize: "1rem", lineHeight: 1.3 }}>{children}</h3>
+          <h3 style={{ margin: "0 0 10px", fontSize: "1rem", lineHeight: 1.3 }}>
+            {children}
+          </h3>
         ),
-        ul: ({ children }) => <ul style={{ margin: "0 0 10px", paddingLeft: "20px" }}>{children}</ul>,
-        ol: ({ children }) => <ol style={{ margin: "0 0 10px", paddingLeft: "20px" }}>{children}</ol>,
-        li: ({ children }) => <li style={{ marginBottom: "6px" }}>{children}</li>,
+        ul: ({ children }) => (
+          <ul style={{ margin: "0 0 10px", paddingLeft: "20px" }}>
+            {children}
+          </ul>
+        ),
+        ol: ({ children }) => (
+          <ol style={{ margin: "0 0 10px", paddingLeft: "20px" }}>
+            {children}
+          </ol>
+        ),
+        li: ({ children }) => (
+          <li style={{ marginBottom: "6px" }}>{children}</li>
+        ),
         a: ({ href, children }) => (
-          <a href={href} style={{ color: "#0f172a", textDecoration: "underline" }} target="_blank" rel="noreferrer">
+          <a
+            href={href}
+            style={{ color: "#0f172a", textDecoration: "underline" }}
+            target="_blank"
+            rel="noreferrer"
+          >
             {children}
           </a>
         ),

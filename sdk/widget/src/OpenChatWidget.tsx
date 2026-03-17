@@ -7,7 +7,10 @@ import { MessageList } from "./components/MessageList";
 import { Composer } from "./components/Composer";
 import { MarkdownMessage } from "./components/MarkdownMessage";
 import { EmptyState } from "./components/EmptyState";
-import { HELPFUL_CHAT_LOGO_DATA_URI, buildOpenChatWidgetThemeCss } from "./theme";
+import {
+  HELPFUL_CHAT_LOGO_DATA_URI,
+  buildOpenChatWidgetThemeCss,
+} from "./theme";
 import { extractMessageText } from "./utils/chat";
 
 const MOBILE_BREAKPOINT_PX = 768;
@@ -34,12 +37,14 @@ export function OpenChatWidget({ url }: OpenChatWidgetProps) {
     }
     return window.visualViewport?.height ?? window.innerHeight;
   });
-  const [visualViewportOffsetTop, setVisualViewportOffsetTop] = React.useState(() => {
-    if (typeof window === "undefined") {
-      return 0;
-    }
-    return window.visualViewport?.offsetTop ?? 0;
-  });
+  const [visualViewportOffsetTop, setVisualViewportOffsetTop] = React.useState(
+    () => {
+      if (typeof window === "undefined") {
+        return 0;
+      }
+      return window.visualViewport?.offsetTop ?? 0;
+    },
+  );
   const messageListRef = React.useRef<HTMLDivElement | null>(null);
   const textareaRef = React.useRef<HTMLTextAreaElement | null>(null);
   const panelRef = React.useRef<HTMLElement | null>(null);
@@ -54,13 +59,7 @@ export function OpenChatWidget({ url }: OpenChatWidgetProps) {
   );
   const themeCss = React.useMemo(() => buildOpenChatWidgetThemeCss(), []);
 
-  const {
-    messages,
-    sendMessage,
-    status,
-    error,
-    stop,
-  } = useChat<UIMessage>({
+  const { messages, sendMessage, status, error, stop } = useChat<UIMessage>({
     transport,
   });
 
@@ -83,7 +82,9 @@ export function OpenChatWidget({ url }: OpenChatWidgetProps) {
       if (typeof window === "undefined") {
         return;
       }
-      setVisualViewportHeight(window.visualViewport?.height ?? window.innerHeight);
+      setVisualViewportHeight(
+        window.visualViewport?.height ?? window.innerHeight,
+      );
       setVisualViewportOffsetTop(window.visualViewport?.offsetTop ?? 0);
     };
 
@@ -94,8 +95,14 @@ export function OpenChatWidget({ url }: OpenChatWidgetProps) {
 
     return () => {
       window.removeEventListener("resize", handleViewportChange);
-      window.visualViewport?.removeEventListener("resize", handleViewportChange);
-      window.visualViewport?.removeEventListener("scroll", handleViewportChange);
+      window.visualViewport?.removeEventListener(
+        "resize",
+        handleViewportChange,
+      );
+      window.visualViewport?.removeEventListener(
+        "scroll",
+        handleViewportChange,
+      );
     };
   }, []);
 
@@ -208,9 +215,13 @@ export function OpenChatWidget({ url }: OpenChatWidgetProps) {
   }, []);
 
   const mobilePanelHeight =
-    visualViewportHeight > 0 ? `${Math.round(visualViewportHeight)}px` : "100dvh";
+    visualViewportHeight > 0
+      ? `${Math.round(visualViewportHeight)}px`
+      : "100dvh";
   const mobilePanelTop =
-    visualViewportOffsetTop > 0 ? `${Math.round(visualViewportOffsetTop)}px` : "0px";
+    visualViewportOffsetTop > 0
+      ? `${Math.round(visualViewportOffsetTop)}px`
+      : "0px";
 
   const panelStyle: React.CSSProperties = isMobileViewport
     ? {
@@ -243,9 +254,7 @@ export function OpenChatWidget({ url }: OpenChatWidgetProps) {
           "0 20px 48px rgba(15, 23, 42, 0.16), 0 3px 10px rgba(15, 23, 42, 0.08)",
       };
 
-  const emptyState = (
-    <EmptyState isMobileViewport={isMobileViewport} />
-  );
+  const emptyState = <EmptyState isMobileViewport={isMobileViewport} />;
 
   return (
     <div data-openchatwidget-root="">
