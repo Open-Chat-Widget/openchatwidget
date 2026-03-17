@@ -18,15 +18,13 @@
   </p>
 </div>
 
-Open Chat Widget is a ChatGPT-like AI chat widget for your website. You build your own custom agent, the chat widget handles the UX and plumbing.
-
-Use it to build service agents (free Intercom Fin alternative), knowledge base & documentation search, onboarding assistants, and more. If you're looking to build great AI chat experiences for your users, this is it.   
+Open Chat Widget lets you drop in a AI chat client right in your product. You just build the backend agent, Open Chat Widget handles the front end UI and plumbing for you. 
 
 ### Why Open Chat Widget
 
 - **Plug and play** - A single component you drop in to your website. You get access to feature rich AI chat with text streaming, web search, tool use, etc. out of the box. Set up is a few lines of code. 
 
-- **Build any AI agent** — Build custom agents with [Vercel AI SDK](https://ai-sdk.dev/). Use any LLM model and create custom workflows. Works directly with existing AI-SDK endpoints. 
+- **Works with AI SDK** — Build custom agents with [Vercel AI SDK](https://ai-sdk.dev/). Use any LLM model and create custom workflows. Works directly with existing AI-SDK endpoints. 
 
 - **Framework-agnostic** — Plugs in to any web framework or website platform: React, Next.js, Vue, WordPress, Shopify, Wix. 
 

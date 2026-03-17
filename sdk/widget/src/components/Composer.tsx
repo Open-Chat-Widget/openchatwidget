@@ -96,7 +96,9 @@ export function Composer({
           padding: isMobileViewport ? "4px 6px 4px 16px" : "4px 6px 4px 14px",
           background: "#ffffff",
           minHeight: isMobileViewport ? "52px" : "44px",
-          boxShadow: isInputFocused ? "0 0 0 3px rgba(15, 23, 42, 0.06)" : "none",
+          boxShadow: isInputFocused
+            ? "0 0 0 3px rgba(15, 23, 42, 0.06)"
+            : "none",
           transition: "box-shadow 120ms ease, border-color 120ms ease",
         }}
       >
@@ -126,13 +128,19 @@ export function Composer({
           type={isGenerating ? "button" : "submit"}
           onClick={isGenerating ? onStop : undefined}
           disabled={isGenerating ? false : !canSend}
-          aria-label={isGenerating ? "Stop generating response" : "Send message"}
+          aria-label={
+            isGenerating ? "Stop generating response" : "Send message"
+          }
           style={{
             width: isMobileViewport ? "38px" : "36px",
             height: isMobileViewport ? "38px" : "36px",
             borderRadius: "9999px",
             border: "none",
-            background: isGenerating ? "#111827" : canSend ? "#111827" : "#d1d5db",
+            background: isGenerating
+              ? "#111827"
+              : canSend
+                ? "#111827"
+                : "#d1d5db",
             color: "#ffffff",
             display: "inline-flex",
             alignItems: "center",

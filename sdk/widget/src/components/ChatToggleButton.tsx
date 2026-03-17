@@ -53,7 +53,9 @@ export const ChatToggleButton = React.forwardRef<
   const [logoLoadFailed, setLogoLoadFailed] = React.useState(false);
   const buttonSize = isMobile ? MOBILE_BUTTON_SIZE_PX : BUTTON_SIZE_PX;
   const iconSize = isMobile ? MOBILE_ICON_SIZE_PX : ICON_SIZE_PX;
-  const closeIconSize = isMobile ? MOBILE_CLOSE_ICON_SIZE_PX : CLOSE_ICON_SIZE_PX;
+  const closeIconSize = isMobile
+    ? MOBILE_CLOSE_ICON_SIZE_PX
+    : CLOSE_ICON_SIZE_PX;
   const offset = isMobile ? "12px" : "16px";
   const hasUnread = !isOpen && unreadCount > 0;
   const unreadLabel = unreadCount > 99 ? "99+" : String(unreadCount);
