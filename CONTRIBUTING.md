@@ -1,56 +1,70 @@
 # Contributing
 
-Thanks for contributing to OpenChatWidget.
+Hey, it's Matt. I maintain the Open Chat Widget repo. Thanks for considering contributing. People like you make the project better. 
 
-The goal of this project is to keep the core AI chat widget simple, portable, and easy to understand.
+Please consider joining the [Discord](https://discord.gg/jA4vcJKECy), that's where contributors and I hang out. 
 
-## What to work on
+## Finding issues to work on
 
-Good contributions:
-
-- bug fixes
-- documentation improvements
-- example app improvements
-- small, durable SDK improvements
-- backend examples for common Node stacks
-
-Please avoid broadening the project unnecessarily. Features like live chat, dashboards, or Convex-specific product layers should not be added unless they are explicitly part of the roadmap.
+If you're interested in contributing, please take a look at the project's [issues tab](https://github.com/Open-Chat-Widget/openchatwidget/issues) to see what work needs to be done. Issues labeled `good first issue` are a great place to start.
 
 ## Local setup
 
-Install dependencies:
+### 1. Fork and clone the repo
+Fork the `openchatwidget` repo, then clone your fork. 
+
+```bash
+git clone git@github.com:<your-github-username>/openchatwidget.git
+cd openchatwidget
+```
+
+### 2. Install SDK dependencies
 
 ```bash
 cd sdk
 npm install
 ```
 
-```bash
-cd examples/vite-express-app
-npm install
-```
-
-Build the SDK:
+### 3. Start the local dev environment
 
 ```bash
-cd sdk
-npm run build
+npm run dev
 ```
 
-Build the example app:
+This starts:
+
+- the Vite sandbox app on `http://127.0.0.1:5173`
+- the local Express agent on `http://localhost:8787`
+
+The sandbox renders the widget directly
+ from the local SDK source, so changes inside `sdk/widget/src` should show up there while you develop.
+
+## Opening a pull request
+
+1. Create a branch for your work.
 
 ```bash
-cd examples/vite-express-app
-npm run build
+git checkout -b my-feature-branch
 ```
 
-## Pull requests
+2. Make your changes.
+3. Run the checks in `sdk/`:
 
-Before opening a PR:
+```bash
+npm run lint
+npm run format:check
+```
+
+4. Commit your changes with a clear message.
+5. Push your branch to GitHub.
+6. Open a pull request against `main`.
+
+Before opening a PR, please make sure to:
 
 - keep changes focused
 - update docs when behavior changes
-- verify relevant builds still pass
+- verify relevant checks and builds still pass
 - explain the reasoning behind non-trivial changes
+- include screenshots or short videos for UI changes when helpful
 
 If you are proposing a larger feature, open an issue first so the scope can be discussed before implementation.
