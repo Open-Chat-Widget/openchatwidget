@@ -13,6 +13,9 @@
     "README.md"
   ],
   "scripts": {
+    "dev": "concurrently --kill-others-on-fail \"npm:dev:client\" \"npm:dev:server\"",
+    "dev:client": "vite --config sandbox/vite.config.ts --host 127.0.0.1",
+    "dev:server": "node --import tsx sandbox/server/index.ts",
     "build": "tsup --config tsup.config.ts",
     "build:client": "tsup --config tsup.config.ts --entry widget/src/index.ts --out-dir dist",
     "lint": "eslint widget/src --ext .ts,.tsx --max-warnings=0",
@@ -39,14 +42,23 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/node": "^24.10.1",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.5",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.2.1",
     "eslint": "^10.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
     "globals": "^17.4.0",
     "prettier": "^3.6.2",
     "tsup": "^8.5.1",
+    "tsx": "^4.7.2",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.1"
+    "typescript-eslint": "^8.57.1",
+    "vite": "^5.4.11"
   },
   "peerDependencies": {
     "react": ">=18",
