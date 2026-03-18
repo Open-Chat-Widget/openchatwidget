@@ -1,11 +1,14 @@
 import * as React from "react";
 import type { UIMessage } from "ai";
 import { ReasoningPanel } from "./ReasoningPanel";
+import { Tool } from "./ai-elements/Tool";
 import {
   extractRenderableUserText,
   hasStreamingAssistantParts,
   isReasoningPart,
   isTextPart,
+  isToolPart,
+  type WidgetToolPart,
 } from "../utils/chat";
 
 type WidgetMessageListProps = {
@@ -17,6 +20,11 @@ type WidgetMessageListProps = {
   disableReasoning?: boolean;
   renderMarkdown: (text: string) => React.ReactNode;
   emptyState?: React.ReactNode;
+  onRespondToToolApproval?: (approval: {
+    id: string;
+    approved: boolean;
+    reason?: string;
+  }) => void;
 };
 
 type RenderableAssistantPart =
@@ -30,6 +38,11 @@ type RenderableAssistantPart =
       kind: "text";
       key: string;
       text: string;
+    }
+  | {
+      kind: "tool";
+      key: string;
+      part: WidgetToolPart;
     };
 
 function getRenderableAssistantParts(
@@ -55,6 +68,15 @@ function getRenderableAssistantParts(
         key: `${message.id}-text-${index}`,
         text: part.text,
       });
+      return;
+    }
+
+    if (isToolPart(part)) {
+      renderableParts.push({
+        kind: "tool",
+        key: `${message.id}-tool-${part.toolCallId}-${index}`,
+        part,
+      });
     }
   });
 
@@ -70,6 +92,7 @@ export function MessageList({
   disableReasoning = false,
   renderMarkdown,
   emptyState,
+  onRespondToToolApproval,
 }: WidgetMessageListProps) {
   const visibleMessages = messages.filter((message) => {
     if (message.role === "user") {
@@ -178,6 +201,16 @@ export function MessageList({
                       text={part.text}
                       isStreaming={part.isStreaming}
                       renderMarkdown={renderMarkdown}
+                    />
+                  );
+                }
+
+                if (part.kind === "tool") {
+                  return (
+                    <Tool
+                      key={part.key}
+                      part={part.part}
+                      onRespondToApproval={onRespondToToolApproval}
                     />
                   );
                 }

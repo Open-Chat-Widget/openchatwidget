@@ -40,7 +40,7 @@ export function Reasoning({ text, isStreaming, className }: ReasoningProps) {
   return (
     <section
       className={cn(
-        "ocw-reasoning-surface ocw:w-full ocw:overflow-hidden ocw:rounded-2xl ocw:border ocw:border-slate-200/90 ocw:shadow-[0_10px_30px_rgba(15,23,42,0.05)]",
+        "ocw:w-full ocw:overflow-hidden ocw:rounded-2xl ocw:border ocw:border-slate-200/90 ocw:shadow-[0_10px_30px_rgba(15,23,42,0.05)] ocw:[background:linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,250,252,0.88)),radial-gradient(circle_at_top_left,rgba(148,163,184,0.14),transparent_55%)]",
         className,
       )}
     >
@@ -61,7 +61,7 @@ export function Reasoning({ text, isStreaming, className }: ReasoningProps) {
             <span className="ocw:flex ocw:items-center ocw:gap-1.5 ocw:text-xs ocw:text-slate-500">
               {isStreaming ? (
                 <>
-                  <span className="ocw-thinking-dot ocw:inline-block ocw:h-1.5 ocw:w-1.5 ocw:rounded-full ocw:bg-emerald-500" />
+                  <span className="ocw:inline-block ocw:h-1.5 ocw:w-1.5 ocw:rounded-full ocw:bg-emerald-500 ocw:animate-[helpfulChatDotPulse_1.2s_ease-in-out_infinite]" />
                   <span>Streaming reasoning summary</span>
                 </>
               ) : (

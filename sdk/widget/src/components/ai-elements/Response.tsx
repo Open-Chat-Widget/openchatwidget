@@ -22,12 +22,12 @@ export function Response({ text, className }: ResponseProps) {
             <p className="ocw:mb-3 ocw:last:mb-0">{children}</p>
           ),
           h1: ({ children }) => (
-            <h1 className="ocw:mb-3 ocw:font-display ocw:text-xl ocw:font-semibold ocw:leading-tight ocw:text-slate-950">
+            <h1 className="ocw:mb-3 ocw:text-xl ocw:font-semibold ocw:leading-tight ocw:text-slate-950 ocw:[font-family:Sora,Space_Grotesk,Avenir_Next,Segoe_UI,sans-serif]">
               {children}
             </h1>
           ),
           h2: ({ children }) => (
-            <h2 className="ocw:mb-3 ocw:font-display ocw:text-lg ocw:font-semibold ocw:leading-tight ocw:text-slate-950">
+            <h2 className="ocw:mb-3 ocw:text-lg ocw:font-semibold ocw:leading-tight ocw:text-slate-950 ocw:[font-family:Sora,Space_Grotesk,Avenir_Next,Segoe_UI,sans-serif]">
               {children}
             </h2>
           ),
