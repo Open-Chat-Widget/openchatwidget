@@ -1,7 +1,9 @@
 import {
+  isFileUIPart,
   getToolOrDynamicToolName,
   isToolUIPart,
   type DynamicToolUIPart,
+  type FileUIPart,
   type UIDataTypes,
   type UIMessagePart,
   type ToolUIPart,
@@ -39,6 +41,12 @@ export function extractRenderableUserText(parts: ReadonlyArray<unknown>) {
     .map((part) => part.text.trim())
     .filter(Boolean)
     .join("\n\n");
+}
+
+export function extractRenderableUserFiles(parts: ReadonlyArray<unknown>) {
+  return parts.filter((part): part is FileUIPart =>
+    isFileUIPart(part as UIMessagePart<UIDataTypes, UITools>),
+  );
 }
 
 export function hasRenderableAssistantParts(parts: ReadonlyArray<unknown>) {

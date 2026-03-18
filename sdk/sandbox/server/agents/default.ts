@@ -1,5 +1,5 @@
 import {
-  convertToModelMessages,
+  convertWidgetMessagesToModelMessages,
   createOpenAI,
   stepCountIs,
   streamText,
@@ -27,7 +27,7 @@ export async function runDefaultAgent(messages: UIMessage[]) {
       `${baseSystemPrompt} ` +
       "Use the weather tool for any weather question. Use the run_command tool only when the user explicitly asks to run a command. " +
       "If a tool execution is denied, do not retry it. When you use a tool, briefly summarize the result for the user.",
-    messages: await convertToModelMessages(messages),
+    messages: await convertWidgetMessagesToModelMessages(messages),
     stopWhen: stepCountIs(5),
     tools: {
       fetch_weather_data: tool({

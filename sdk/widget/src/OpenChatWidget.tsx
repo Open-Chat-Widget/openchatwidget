@@ -30,6 +30,7 @@ export function OpenChatWidget({
   disableReasoning = false,
 }: OpenChatWidgetProps) {
   const [input, setInput] = React.useState("");
+  const [attachments, setAttachments] = React.useState<File[]>([]);
   const [isOpen, setIsOpen] = React.useState(false);
   const [isInputFocused, setIsInputFocused] = React.useState(false);
   const [isMobileViewport, setIsMobileViewport] = React.useState(() => {
@@ -79,7 +80,8 @@ export function OpenChatWidget({
   });
 
   const isGenerating = status === "submitted" || status === "streaming";
-  const canSend = input.trim().length > 0 && !isGenerating;
+  const canSend =
+    (input.trim().length > 0 || attachments.length > 0) && !isGenerating;
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -187,15 +189,36 @@ export function OpenChatWidget({
 
   const submitMessage = React.useCallback(() => {
     const nextInput = input.trim();
-    if (!nextInput || isGenerating) {
+    if ((nextInput.length === 0 && attachments.length === 0) || isGenerating) {
       return;
     }
-    void sendMessage({
-      text: nextInput,
-    });
+
+    if (attachments.length > 0) {
+      const transfer = new DataTransfer();
+      attachments.forEach((file) => {
+        transfer.items.add(file);
+      });
+
+      if (nextInput.length > 0) {
+        void sendMessage({
+          text: nextInput,
+          files: transfer.files,
+        });
+      } else {
+        void sendMessage({
+          files: transfer.files,
+        });
+      }
+    } else {
+      void sendMessage({
+        text: nextInput,
+      });
+    }
+
     setInput("");
+    setAttachments([]);
     textareaRef.current?.focus();
-  }, [sendMessage, input, isGenerating, setInput]);
+  }, [attachments, sendMessage, input, isGenerating, setInput]);
 
   const handleSubmit = React.useCallback(
     (event: React.FormEvent) => {
@@ -316,6 +339,28 @@ export function OpenChatWidget({
           <Composer
             input={input}
             setInput={setInput}
+            attachments={attachments}
+            onAddAttachments={(nextFiles) => {
+              const deduped = new Map<string, File>();
+              for (const file of attachments) {
+                deduped.set(
+                  `${file.name}:${file.size}:${file.lastModified}`,
+                  file,
+                );
+              }
+              for (const file of nextFiles) {
+                deduped.set(
+                  `${file.name}:${file.size}:${file.lastModified}`,
+                  file,
+                );
+              }
+              setAttachments(Array.from(deduped.values()));
+            }}
+            onRemoveAttachment={(fileIndex) => {
+              setAttachments((prev) =>
+                prev.filter((_, index) => index !== fileIndex),
+              );
+            }}
             placeholder={DEFAULT_PLACEHOLDER}
             isGenerating={isGenerating}
             canSend={canSend}
