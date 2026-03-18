@@ -1,3 +1,6 @@
+@import "tailwindcss" prefix(ocw);
+@source "./**/*.{ts,tsx}";
+
 :root {
   --openchatwidget-build-stylesheet: 1;
 }

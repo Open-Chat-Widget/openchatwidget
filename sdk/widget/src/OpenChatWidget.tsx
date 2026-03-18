@@ -1,6 +1,10 @@
 import * as React from "react";
 import { useChat } from "@ai-sdk/react";
-import { DefaultChatTransport, type UIMessage } from "ai";
+import {
+  DefaultChatTransport,
+  lastAssistantMessageIsCompleteWithApprovalResponses,
+  type UIMessage,
+} from "ai";
 import { ChatToggleButton } from "./components/ChatToggleButton";
 import { WidgetPanel } from "./components/WidgetPanel";
 import { MessageList } from "./components/MessageList";
@@ -62,8 +66,16 @@ export function OpenChatWidget({
   );
   const themeCss = React.useMemo(() => buildOpenChatWidgetThemeCss(), []);
 
-  const { messages, sendMessage, status, error, stop } = useChat<UIMessage>({
+  const {
+    messages,
+    sendMessage,
+    status,
+    error,
+    stop,
+    addToolApprovalResponse,
+  } = useChat<UIMessage>({
     transport,
+    sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithApprovalResponses,
   });
 
   const isGenerating = status === "submitted" || status === "streaming";
@@ -297,6 +309,9 @@ export function OpenChatWidget({
             disableReasoning={disableReasoning}
             renderMarkdown={(text) => <MarkdownMessage text={text} />}
             emptyState={emptyState}
+            onRespondToToolApproval={(approval) =>
+              void addToolApprovalResponse(approval)
+            }
           />
           <Composer
             input={input}

@@ -32,7 +32,6 @@ ${scopeSelector} input,
 ${scopeSelector} select,
 ${scopeSelector} textarea {
   font: inherit;
-  color: inherit;
 }
 
 @keyframes helpfulChatDotPulse {
