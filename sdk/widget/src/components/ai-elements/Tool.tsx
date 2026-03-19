@@ -209,7 +209,9 @@ function ApprovalCard({
     }
   }
 
-  function handleApprovalRowKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+  function handleApprovalRowKeyDown(
+    event: React.KeyboardEvent<HTMLDivElement>,
+  ) {
     if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) {
       return;
     }
@@ -311,11 +313,7 @@ function getResponsePane(part: WidgetToolPart) {
   return null;
 }
 
-export function Tool({
-  part,
-  onRespondToApproval,
-  className,
-}: ToolProps) {
+export function Tool({ part, onRespondToApproval, className }: ToolProps) {
   const defaultOpen =
     part.state === "approval-requested" ||
     part.state === "output-available" ||
@@ -329,12 +327,13 @@ export function Tool({
       <CodePane label="Request" value={part.input ?? {}} />
     ) : null;
   const responsePane = getResponsePane(part);
-  const parameterCard = requestPane || responsePane ? (
-    <div className="ocw:mt-1 ocw:flex ocw:flex-col ocw:gap-2 ocw:rounded-xl ocw:border ocw:border-slate-200/70 ocw:bg-white/60 ocw:p-3">
-      {requestPane}
-      {responsePane}
-    </div>
-  ) : null;
+  const parameterCard =
+    requestPane || responsePane ? (
+      <div className="ocw:mt-1 ocw:flex ocw:flex-col ocw:gap-2 ocw:rounded-xl ocw:border ocw:border-slate-200/70 ocw:bg-white/60 ocw:p-3">
+        {requestPane}
+        {responsePane}
+      </div>
+    ) : null;
 
   // Ensure tool approval requests are shown immediately when the part
   // transitions into the "approval-requested" state.

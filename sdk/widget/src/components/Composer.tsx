@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Paperclip } from "lucide-react";
 import { HELPFUL_CHAT_LOGO_DATA_URI } from "../theme";
 
 type WidgetComposerProps = {
@@ -22,6 +23,42 @@ type WidgetComposerProps = {
 };
 
 const POWERED_BY_LOGO_SRC = HELPFUL_CHAT_LOGO_DATA_URI;
+const SUPPORTED_IMAGE_EXTENSIONS = new Set([
+  ".png",
+  ".jpg",
+  ".jpeg",
+  ".webp",
+  ".gif",
+  ".bmp",
+  ".tiff",
+  ".tif",
+  ".heic",
+  ".heif",
+  ".svg",
+]);
+
+function getLowercaseExtension(fileName: string) {
+  const extensionStart = fileName.lastIndexOf(".");
+  if (extensionStart === -1) {
+    return "";
+  }
+  return fileName.slice(extensionStart).toLowerCase();
+}
+
+function isAiSdkSupportedAttachment(file: File) {
+  const mimeType = file.type.toLowerCase();
+
+  if (mimeType.startsWith("image/")) {
+    return true;
+  }
+  if (mimeType === "application/pdf") {
+    return true;
+  }
+
+  // Some drag/drop sources omit MIME type; fallback to extension checks.
+  const extension = getLowercaseExtension(file.name);
+  return extension === ".pdf" || SUPPORTED_IMAGE_EXTENSIONS.has(extension);
+}
 
 function formatFileSize(sizeInBytes: number) {
   if (sizeInBytes < 1024) {
@@ -110,6 +147,9 @@ export function Composer({
 }: WidgetComposerProps) {
   const [isAttachmentMenuOpen, setIsAttachmentMenuOpen] = React.useState(false);
   const [isDraggingFiles, setIsDraggingFiles] = React.useState(false);
+  const [attachmentError, setAttachmentError] = React.useState<string | null>(
+    null,
+  );
   const attachmentMenuRef = React.useRef<HTMLDivElement | null>(null);
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
   const dragDepthRef = React.useRef(0);
@@ -175,6 +215,39 @@ export function Composer({
     };
   }, [isAttachmentMenuOpen]);
 
+  const addValidatedAttachments = React.useCallback(
+    (incomingFiles: File[]) => {
+      const supportedFiles: File[] = [];
+      const rejectedFileNames: string[] = [];
+
+      for (const file of incomingFiles) {
+        if (isAiSdkSupportedAttachment(file)) {
+          supportedFiles.push(file);
+        } else {
+          rejectedFileNames.push(file.name);
+        }
+      }
+
+      if (supportedFiles.length > 0) {
+        onAddAttachments(supportedFiles);
+      }
+
+      if (rejectedFileNames.length > 0) {
+        const previewNames = rejectedFileNames.slice(0, 3).join(", ");
+        const suffix =
+          rejectedFileNames.length > 3
+            ? ` +${rejectedFileNames.length - 3} more`
+            : "";
+        setAttachmentError(
+          `Unsupported file type: ${previewNames}${suffix}. Use images or PDFs only.`,
+        );
+      } else {
+        setAttachmentError(null);
+      }
+    },
+    [onAddAttachments],
+  );
+
   return (
     <form
       onSubmit={onSubmit}
@@ -201,7 +274,7 @@ export function Composer({
 
         const droppedFiles = Array.from(event.dataTransfer.files ?? []);
         if (droppedFiles.length > 0) {
-          onAddAttachments(droppedFiles);
+          addValidatedAttachments(droppedFiles);
         }
       }}
       style={{
@@ -241,7 +314,7 @@ export function Composer({
           onChange={(event) => {
             const selectedFiles = Array.from(event.target.files ?? []);
             if (selectedFiles.length > 0) {
-              onAddAttachments(selectedFiles);
+              addValidatedAttachments(selectedFiles);
             }
 
             // Allow selecting the same file again after removing it.
@@ -262,7 +335,7 @@ export function Composer({
               padding: "6px 8px",
             }}
           >
-            Drop files to attach
+            Drop images or PDFs to attach
           </div>
         ) : null}
 
@@ -408,10 +481,7 @@ export function Composer({
             padding: "0 4px 2px",
           }}
         >
-          <div
-            ref={attachmentMenuRef}
-            style={{ position: "relative" }}
-          >
+          <div ref={attachmentMenuRef} style={{ position: "relative" }}>
             <button
               type="button"
               onClick={() => setIsAttachmentMenuOpen((prev) => !prev)}
@@ -455,6 +525,9 @@ export function Composer({
                     border: "none",
                     background: "transparent",
                     textAlign: "left",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
                     padding: "7px 8px",
                     borderRadius: "8px",
                     color: "#111827",
@@ -462,7 +535,8 @@ export function Composer({
                     cursor: "pointer",
                   }}
                 >
-                  Upload file
+                  <Paperclip size={14} aria-hidden="true" strokeWidth={1.9} />
+                  Upload image or PDF
                 </button>
               </div>
             ) : null}
@@ -472,13 +546,19 @@ export function Composer({
             type={isGenerating ? "button" : "submit"}
             onClick={isGenerating ? onStop : undefined}
             disabled={isGenerating ? false : !canSend}
-            aria-label={isGenerating ? "Stop generating response" : "Send message"}
+            aria-label={
+              isGenerating ? "Stop generating response" : "Send message"
+            }
             style={{
               width: isMobileViewport ? "38px" : "36px",
               height: isMobileViewport ? "38px" : "36px",
               borderRadius: "9999px",
               border: "none",
-              background: isGenerating ? "#111827" : canSend ? "#111827" : "#d1d5db",
+              background: isGenerating
+                ? "#111827"
+                : canSend
+                  ? "#111827"
+                  : "#d1d5db",
               color: "#ffffff",
               display: "inline-flex",
               alignItems: "center",
@@ -490,6 +570,21 @@ export function Composer({
           </button>
         </div>
       </div>
+      {attachmentError ? (
+        <p
+          role="status"
+          aria-live="polite"
+          style={{
+            margin: 0,
+            color: "#b91c1c",
+            fontSize: "12px",
+            lineHeight: 1.3,
+            padding: isMobileViewport ? "0 4px" : "0 2px",
+          }}
+        >
+          {attachmentError}
+        </p>
+      ) : null}
       <a
         href="https://openchatwidget.com"
         target="_blank"

@@ -1,8 +1,4 @@
-import {
-  convertToModelMessages,
-  type ModelMessage,
-  type UIMessage,
-} from "ai";
+import { convertToModelMessages, type ModelMessage, type UIMessage } from "ai";
 
 function stripDataUrlPrefix(dataUrl: string) {
   const commaIndex = dataUrl.indexOf(",");
@@ -45,4 +41,3 @@ export async function convertWidgetMessagesToModelMessages(
 ): Promise<ModelMessage[]> {
   return convertToModelMessages(normalizeWidgetMessages(messages));
 }
-

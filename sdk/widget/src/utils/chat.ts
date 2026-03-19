@@ -121,9 +121,7 @@ export function getToolSummary(part: WidgetToolPart) {
     case "approval-requested":
       return `${action} requires approval`;
     case "approval-responded":
-      return part.approval.approved
-        ? `${action} approved`
-        : `${action} denied`;
+      return part.approval.approved ? `${action} approved` : `${action} denied`;
     case "output-available":
       return `${action} complete`;
     case "output-error":

@@ -5,6 +5,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { config as loadEnv } from "dotenv";
 import type { UIMessage } from "../../widget/src/index";
+import { runAsanaAgent } from "./agents/asana";
 import { runDefaultAgent } from "./agents/default";
 
 const sandboxEnvLocal = fileURLToPath(new URL("../.env.local", import.meta.url));
@@ -28,6 +29,7 @@ app.get("/api/chat", (c) =>
     defaultAgentId: "default",
     routes: {
       default: "/api/chat/default",
+      asana: "/api/chat/asana",
     },
   }),
 );
@@ -42,6 +44,25 @@ app.post("/api/chat/default", async (c) => {
   });
 });
 
+app.post("/api/chat/asana", async (c) => {
+  const body = (await c.req.json()) as { messages?: UIMessage[] };
+  const messages = body.messages ?? [];
+
+  try {
+    const result = await runAsanaAgent(messages);
+
+    return result.toUIMessageStreamResponse({
+      sendReasoning: true,
+    });
+  } catch (error) {
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Failed to start Asana agent. Check ASANA_MCP_ACCESS_TOKEN.";
+    return c.json({ error: message }, 500);
+  }
+});
+
 serve(
   {
     fetch: app.fetch,
@@ -49,6 +70,8 @@ serve(
   },
   (info) => {
     console.log(`Hono agent listening on http://localhost:${info.port}`);
-    console.log("Available chat routes: GET /api/chat, POST /api/chat/default");
+    console.log(
+      "Available chat routes: GET /api/chat, POST /api/chat/default, POST /api/chat/asana",
+    );
   },
 );

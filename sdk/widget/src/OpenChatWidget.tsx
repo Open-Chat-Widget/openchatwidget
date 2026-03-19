@@ -69,10 +69,12 @@ export function OpenChatWidget({
 
   const {
     messages,
+    setMessages,
     sendMessage,
     status,
     error,
     stop,
+    clearError,
     addToolApprovalResponse,
   } = useChat<UIMessage>({
     transport,
@@ -186,6 +188,17 @@ export function OpenChatWidget({
     textareaRef.current?.blur();
     setIsOpen(false);
   }, []);
+
+  const resetChat = React.useCallback(() => {
+    if (isGenerating) {
+      stop();
+    }
+    setMessages([]);
+    clearError();
+    setInput("");
+    setAttachments([]);
+    textareaRef.current?.focus();
+  }, [clearError, isGenerating, setMessages, stop]);
 
   const submitMessage = React.useCallback(() => {
     const nextInput = input.trim();
@@ -310,6 +323,7 @@ export function OpenChatWidget({
         isMobileViewport={isMobileViewport}
         title={DEFAULT_TITLE}
         onClose={closeChat}
+        onResetChat={resetChat}
         panelStyle={panelStyle}
         panelRef={panelRef}
         logoSrc={HELPFUL_CHAT_LOGO_DATA_URI}
