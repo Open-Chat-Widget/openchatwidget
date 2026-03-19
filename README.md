@@ -22,13 +22,15 @@ Open Chat Widget lets you drop in a AI chat client right in your product. You ju
 
 ### Why Open Chat Widget
 
-I'll be honest, there's a TON of chatbot frameworks out there, why use us? You came here because you want a working chat, not a new framework to learn. Open Chat Widget gives you a prod ready chat out of the box. We're opinionated about design and UX so you can skip the decisions and focus on what matters, building your agent. 
+You came here because you want a working chat bot, not a new framework to learn. Open Chat Widget gives you a prod ready chat out of the box. We're opinionated about design and UX so you can skip the decisions and focus on what matters: building your agent. 
 
 - **Plug and play** - A single component you drop in to your website. You get access to feature rich AI chat with text streaming, web search, tool use, etc. out of the box. Set up is a few lines of code. 
 
 - **Works with AI SDK** — Build custom agents with [Vercel AI SDK](https://ai-sdk.dev/). Use any LLM model and create custom workflows. Works directly with existing AI-SDK endpoints. 
 
 - **Framework-agnostic** — Plugs in to any web framework or website platform: React, Next.js, Vue, WordPress, Shopify, Wix. 
+
+- **Support for MCP** - Compatible with MCP servers. Connect to MCP servers and use its tools. Support for MCP apps (MCP-UI) coming soon. 
 
 - **Open source** — MIT licensed. Free forever. You own your data and infrastructure. 
 

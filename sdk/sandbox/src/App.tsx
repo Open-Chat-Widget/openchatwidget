@@ -1,7 +1,7 @@
 import { OpenChatWidget } from "../../widget/src";
 
 const chatApiUrl =
-  import.meta.env.VITE_CHAT_API_URL ?? "http://localhost:8787/api/chat/asana";
+  import.meta.env.VITE_CHAT_API_URL ?? "http://localhost:8787/api/chat/notion";
 
 export default function App() {
   return (

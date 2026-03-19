@@ -1,0 +1,88 @@
+---
+title: "Agent with MCP"
+description: "Build an AI SDK agent connected to an MCP server"
+---
+
+You can build an AI SDK agent connected to an MCP server and expose it through one streaming endpoint.
+
+## Install and configure
+
+Install `@mcpjam/sdk` first. It provides `MCPClientManager`, which connects your agent to an MCP server and exposes MCP tools to AI SDK.
+
+```bash
+npm i @mcpjam/sdk
+```
+
+## Build the agent
+
+Use `MCPClientManager` to connect to your MCP server, fetch AI SDK-compatible tools, and pass them directly into `streamText` in your `/api/chat` handler.
+
+```ts
+import { MCPClientManager } from "@mcpjam/sdk";
+import {
+  convertWidgetMessagesToModelMessages,
+  createOpenAI,
+  stepCountIs,
+  streamText,
+  type UIMessage,
+} from "@openchatwidget/sdk";
+
+app.post("/api/chat", async (request, response) => {
+  const { messages } = request.body as { messages: UIMessage[] };
+
+  const openai = createOpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+
+  const manager = new MCPClientManager();
+  await manager.connectToServer("workspace", {
+    url: "https://mcp.notion.com/mcp",
+    requestInit: {
+      headers: {
+        Authorization: `Bearer ${process.env.NOTION_TOKEN}`,
+      },
+    },
+  });
+
+  const mcpTools = await manager.getToolsForAiSdk(["workspace"]);
+
+  const result = streamText({
+    model: openai("gpt-4o-mini"),
+    system: "Use MCP tools when needed.",
+    messages: await convertWidgetMessagesToModelMessages(messages),
+    stopWhen: stepCountIs(10),
+    tools: { ...mcpTools },
+    onFinish: async () => {
+      await manager.disconnectAllServers();
+    },
+    onAbort: async () => {
+      await manager.disconnectAllServers();
+    },
+    onError: async () => {
+      await manager.disconnectAllServers();
+    },
+  });
+
+  result.pipeUIMessageStreamToResponse(response);
+});
+```
+
+Then point your widget at the same endpoint:
+
+```tsx
+<OpenChatWidget url="http://localhost:8787/api/chat" />
+```
+
+## How this appears in Open Chat Widget
+
+The widget displays MCP tool execution as normal AI SDK tool parts:
+
+- Tool cards show each tool call and status (running, complete, denied, error).
+- Approval-required tools can be approved or denied in the chat UI.
+- Responses keep streaming while tools are called in agent steps.
+
+Because this is standard AI SDK tool streaming, MCP and non-MCP tools can be mixed in one agent.
+
+### Example
+
+![MCP example in Open Chat Widget](/images/mcp-example.png)
