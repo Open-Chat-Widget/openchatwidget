@@ -3,6 +3,7 @@ import type { UIMessage } from "ai";
 import { ReasoningPanel } from "./ReasoningPanel";
 import { Tool } from "./ai-elements/Tool";
 import {
+  extractRenderableUserFiles,
   extractRenderableUserText,
   hasStreamingAssistantParts,
   isReasoningPart,
@@ -96,7 +97,9 @@ export function MessageList({
 }: WidgetMessageListProps) {
   const visibleMessages = messages.filter((message) => {
     if (message.role === "user") {
-      return extractRenderableUserText(message.parts).trim().length > 0;
+      const userText = extractRenderableUserText(message.parts);
+      const userFiles = extractRenderableUserFiles(message.parts);
+      return userText.trim().length > 0 || userFiles.length > 0;
     }
 
     if (message.role === "assistant") {
@@ -144,7 +147,9 @@ export function MessageList({
       {visibleMessages.map((message) => {
         if (message.role === "user") {
           const text = extractRenderableUserText(message.parts);
-          if (!text.trim()) {
+          const files = extractRenderableUserFiles(message.parts);
+
+          if (!text.trim() && files.length === 0) {
             return null;
           }
 
@@ -164,6 +169,63 @@ export function MessageList({
                 boxShadow: "none",
               }}
             >
+              {files.length > 0 ? (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
+                    marginBottom: text.trim() ? "10px" : 0,
+                  }}
+                >
+                  {files.map((file, index) => {
+                    const isImage = file.mediaType.startsWith("image/");
+                    const fileLabel =
+                      file.filename?.trim() || `Attachment ${index + 1}`;
+
+                    return (
+                      <a
+                        key={`${message.id}-file-${index}-${file.url}`}
+                        href={file.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                          borderRadius: "12px",
+                          border: "1px solid #e5e7eb",
+                          background: "#ffffff",
+                          color: "#111827",
+                          textDecoration: "none",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {isImage ? (
+                          <img
+                            src={file.url}
+                            alt={fileLabel}
+                            style={{
+                              display: "block",
+                              width: "100%",
+                              maxHeight: "220px",
+                              objectFit: "cover",
+                            }}
+                          />
+                        ) : null}
+                        <div
+                          style={{
+                            padding: "8px 10px",
+                            fontSize: "12px",
+                            color: "#374151",
+                            borderTop: isImage ? "1px solid #e5e7eb" : "none",
+                          }}
+                        >
+                          {fileLabel}
+                        </div>
+                      </a>
+                    );
+                  })}
+                </div>
+              ) : null}
+
               <p style={{ margin: 0, whiteSpace: "pre-wrap" }}>{text}</p>
             </article>
           );

@@ -1,5 +1,5 @@
 import {
-  convertToModelMessages,
+  convertWidgetMessagesToModelMessages,
   createOpenAI,
   stepCountIs,
   streamText,
@@ -25,11 +25,16 @@ export async function runDefaultAgent(messages: UIMessage[]) {
     model: openai(modelId),
     system:
       `${baseSystemPrompt} ` +
+      "Use the native web_search tool for questions that require current events or up-to-date web information. " +
       "Use the weather tool for any weather question. Use the run_command tool only when the user explicitly asks to run a command. " +
       "If a tool execution is denied, do not retry it. When you use a tool, briefly summarize the result for the user.",
-    messages: await convertToModelMessages(messages),
+    messages: await convertWidgetMessagesToModelMessages(messages),
     stopWhen: stepCountIs(5),
     tools: {
+      web_search: openai.tools.webSearch({
+        externalWebAccess: true,
+        searchContextSize: "medium",
+      }),
       fetch_weather_data: tool({
         description: "Fetch mock weather data for a city or location.",
         inputSchema: z.object({
@@ -64,28 +69,6 @@ export async function runDefaultAgent(messages: UIMessage[]) {
             fetchedAt: new Date().toLocaleString("en-US", {
               timeZone: "America/Los_Angeles",
             }),
-          };
-        },
-      }),
-      run_command: tool({
-        description:
-          "Preview a shell command that would run in the sandbox. Requires approval before execution.",
-        inputSchema: z.object({
-          command: z.string().describe("The shell command to run."),
-          reason: z
-            .string()
-            .describe("Why the command is needed for the user request."),
-        }),
-        needsApproval: true,
-        execute: async ({ command, reason }) => {
-          await wait(600);
-
-          return {
-            command,
-            reason,
-            status: "approved-and-simulated",
-            output:
-              "Sandbox demo only. Replace this tool with your real command runner.",
           };
         },
       }),

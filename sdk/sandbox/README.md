@@ -13,10 +13,17 @@ cd /Users/matt8p/Desktop/openchatwidget/sdk
 npm install
 ```
 
-2. Add env vars for the Hono agent:
+2. Add env vars for the Hono agents:
 
 ```bash
 cp .env.example .env
+```
+
+Set at least:
+
+```bash
+OPENAI_API_KEY=...
+ASANA_TOKEN=...
 ```
 
 3. Start both the frontend and backend:
@@ -28,6 +35,7 @@ npm run dev
 Frontend: `http://localhost:5173`  
 API info: `http://localhost:8787/api/chat`
 Chat endpoint: `http://localhost:8787/api/chat/default`
+Asana endpoint: `http://localhost:8787/api/chat/asana`
 
 The landing page mounts `<OpenChatWidget />`, and the widget streams responses
 from the Hono sandbox API, including AI SDK `reasoning` parts.

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { RotateCcw, X } from "lucide-react";
 import { HELPFUL_CHAT_LOGO_DATA_URI } from "../theme";
 
 type WidgetPanelProps = {
@@ -6,6 +7,7 @@ type WidgetPanelProps = {
   isMobileViewport: boolean;
   title: string;
   onClose: () => void;
+  onResetChat?: () => void;
   panelStyle: React.CSSProperties;
   panelRef: React.RefObject<HTMLElement | null>;
   logoSrc?: string;
@@ -25,12 +27,15 @@ export function WidgetPanel({
   isMobileViewport,
   title,
   onClose,
+  onResetChat,
   panelStyle,
   panelRef,
   logoSrc = DEFAULT_LOGO_SRC,
   activeSupport,
   children,
 }: WidgetPanelProps) {
+  const [isResetHovered, setIsResetHovered] = React.useState(false);
+
   if (!isOpen) {
     return null;
   }
@@ -39,11 +44,13 @@ export function WidgetPanel({
     <section ref={panelRef} style={panelStyle} aria-label={title}>
       <header
         style={{
+          position: "relative",
+          zIndex: 10,
           padding: isMobileViewport
             ? "calc(8px + env(safe-area-inset-top, 0px)) 14px 8px"
             : "14px 16px 8px",
           display: "grid",
-          gridTemplateColumns: "36px minmax(0, 1fr) 36px",
+          gridTemplateColumns: "36px minmax(0, 1fr) auto",
           alignItems: "center",
           gap: "10px",
         }}
@@ -154,24 +161,82 @@ export function WidgetPanel({
         ) : (
           <div />
         )}
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close chat"
+        <div
           style={{
-            width: isMobileViewport ? "36px" : "32px",
-            height: isMobileViewport ? "36px" : "32px",
-            borderRadius: "9999px",
-            border: "none",
-            background: "transparent",
-            color: "#4b5563",
-            cursor: "pointer",
-            fontSize: "20px",
-            lineHeight: 1,
+            display: "flex",
+            alignItems: "center",
+            gap: "6px",
           }}
         >
-          x
-        </button>
+          {onResetChat ? (
+            <div style={{ position: "relative" }}>
+              <button
+                type="button"
+                onClick={onResetChat}
+                onMouseEnter={() => setIsResetHovered(true)}
+                onMouseLeave={() => setIsResetHovered(false)}
+                onFocus={() => setIsResetHovered(true)}
+                onBlur={() => setIsResetHovered(false)}
+                aria-label="Reset chat"
+                style={{
+                  width: isMobileViewport ? "36px" : "32px",
+                  height: isMobileViewport ? "36px" : "32px",
+                  borderRadius: "9999px",
+                  border: "none",
+                  background: "transparent",
+                  color: "#4b5563",
+                  cursor: "pointer",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <RotateCcw size={16} aria-hidden="true" />
+              </button>
+              {isResetHovered ? (
+                <div
+                  role="tooltip"
+                  style={{
+                    position: "absolute",
+                    top: "calc(100% + 6px)",
+                    right: "0",
+                    zIndex: 20,
+                    background: "#ffffff",
+                    color: "#111827",
+                    fontSize: "11px",
+                    lineHeight: 1,
+                    borderRadius: "6px",
+                    padding: "6px 8px",
+                    whiteSpace: "nowrap",
+                    border: "1px solid #e5e7eb",
+                    pointerEvents: "none",
+                  }}
+                >
+                  reset
+                </div>
+              ) : null}
+            </div>
+          ) : null}
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close chat"
+            style={{
+              width: isMobileViewport ? "36px" : "32px",
+              height: isMobileViewport ? "36px" : "32px",
+              borderRadius: "9999px",
+              border: "none",
+              background: "transparent",
+              color: "#4b5563",
+              cursor: "pointer",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <X size={16} aria-hidden="true" />
+          </button>
+        </div>
       </header>
       {children}
     </section>

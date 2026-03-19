@@ -33,7 +33,9 @@ function useConfirmationContext() {
   const context = React.useContext(ConfirmationContext);
 
   if (!context) {
-    throw new Error("Confirmation components must be used inside Confirmation.");
+    throw new Error(
+      "Confirmation components must be used inside Confirmation.",
+    );
   }
 
   return context;
@@ -71,7 +73,12 @@ export function ConfirmationTitle({
   className?: string;
 }) {
   return (
-    <div className={cn("ocw:text-sm ocw:font-semibold ocw:text-slate-900", className)}>
+    <div
+      className={cn(
+        "ocw:text-sm ocw:font-semibold ocw:text-slate-900",
+        className,
+      )}
+    >
       {children}
     </div>
   );
@@ -91,7 +98,9 @@ export function ConfirmationRequest({
   }
 
   return (
-    <div className={cn("ocw:text-sm ocw:leading-6 ocw:text-slate-600", className)}>
+    <div
+      className={cn("ocw:text-sm ocw:leading-6 ocw:text-slate-600", className)}
+    >
       {children}
     </div>
   );
@@ -106,7 +115,12 @@ export function ConfirmationAccepted({
 }) {
   const { approval, state } = useConfirmationContext();
 
-  if (!approval?.approved || (state !== "approval-responded" && state !== "output-available" && state !== "output-error")) {
+  if (
+    !approval?.approved ||
+    (state !== "approval-responded" &&
+      state !== "output-available" &&
+      state !== "output-error")
+  ) {
     return null;
   }
 
@@ -137,10 +151,7 @@ export function ConfirmationRejected({
 
   return (
     <div
-      className={cn(
-        "ocw:text-sm ocw:leading-6 ocw:text-rose-700",
-        className,
-      )}
+      className={cn("ocw:text-sm ocw:leading-6 ocw:text-rose-700", className)}
     >
       {children}
     </div>

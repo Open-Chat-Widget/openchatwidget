@@ -51,6 +51,13 @@ The next step is to set up your AI agent backend. Create an API endpoint with yo
 
 Here's a simple AI SDK UI stream agent:
 ```tsx
+import {
+  createOpenAI,
+  convertWidgetMessagesToModelMessages,
+  streamText,
+  type UIMessage,
+} from "@openchatwidget/sdk";
+
 app.use(express.json());
 app.post("/api/chat", async (request, response) => {
   const { messages } = request.body as { messages: UIMessage[] };
@@ -62,12 +69,14 @@ app.post("/api/chat", async (request, response) => {
   const result = streamText({
     model: openai("gpt-5-mini"),
     system: "You are the OpenChatWidget example assistant. Keep answers concise and useful.",
-    messages: await convertToModelMessages(messages),
+    messages: await convertWidgetMessagesToModelMessages(messages),
   });
 
   result.pipeUIMessageStreamToResponse(response);
 });
 ```
+
+`convertWidgetMessagesToModelMessages` normalizes uploaded file parts (including browser `data:` URLs) so server implementors do not need to manually preprocess attachments.
 
 ### 3. Connect the widget to the agent. 
 
