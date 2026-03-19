@@ -22,6 +22,8 @@
         "group": "Building agents",
         "pages": [
           "agent-use-cases",
+          "agent-with-web-search",
+          "agent-with-mcp",
           "compatibility"
         ]
       },

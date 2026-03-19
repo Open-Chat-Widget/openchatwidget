@@ -5,8 +5,8 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { config as loadEnv } from "dotenv";
 import type { UIMessage } from "../../widget/src/index";
-import { runAsanaAgent } from "./agents/asana";
 import { runDefaultAgent } from "./agents/default";
+import { runNotionAgent } from "./agents/notion";
 
 const sandboxEnvLocal = fileURLToPath(new URL("../.env.local", import.meta.url));
 const sandboxEnv = fileURLToPath(new URL("../.env", import.meta.url));
@@ -29,7 +29,7 @@ app.get("/api/chat", (c) =>
     defaultAgentId: "default",
     routes: {
       default: "/api/chat/default",
-      asana: "/api/chat/asana",
+      notion: "/api/chat/notion",
     },
   }),
 );
@@ -44,12 +44,12 @@ app.post("/api/chat/default", async (c) => {
   });
 });
 
-app.post("/api/chat/asana", async (c) => {
+app.post("/api/chat/notion", async (c) => {
   const body = (await c.req.json()) as { messages?: UIMessage[] };
   const messages = body.messages ?? [];
 
   try {
-    const result = await runAsanaAgent(messages);
+    const result = await runNotionAgent(messages);
 
     return result.toUIMessageStreamResponse({
       sendReasoning: true,
@@ -58,7 +58,7 @@ app.post("/api/chat/asana", async (c) => {
     const message =
       error instanceof Error
         ? error.message
-        : "Failed to start Asana agent. Check ASANA_MCP_ACCESS_TOKEN.";
+        : "Failed to start Notion agent. Check NOTION_TOKEN.";
     return c.json({ error: message }, 500);
   }
 });
@@ -71,7 +71,7 @@ serve(
   (info) => {
     console.log(`Hono agent listening on http://localhost:${info.port}`);
     console.log(
-      "Available chat routes: GET /api/chat, POST /api/chat/default, POST /api/chat/asana",
+      "Available chat routes: GET /api/chat, POST /api/chat/default, POST /api/chat/notion",
     );
   },
 );

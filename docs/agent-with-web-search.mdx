@@ -1,0 +1,85 @@
+---
+title: "Agent with web search"
+description: "Build an AI SDK agent with native web search"
+---
+
+Use web search when your agent needs fresh information from the internet, such as news, product launches, docs updates, or recent events. You can give your agent web search capabilities with a couple of changes on the backend.
+
+## Build an AI SDK agent with web search
+
+Add web search directly in your `/api/chat` streaming handler:
+
+```ts
+import {
+  convertWidgetMessagesToModelMessages,
+  createOpenAI,
+  stepCountIs,
+  streamText,
+  type UIMessage,
+} from "@openchatwidget/sdk";
+
+app.post("/api/chat", async (request, response) => {
+  const { messages } = request.body as { messages: UIMessage[] };
+
+  const openai = createOpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+
+  const result = streamText({
+    model: openai("gpt-5-mini"),
+    system:
+      "You are an assistant. Use web_search for current events or up-to-date information.",
+    messages: await convertWidgetMessagesToModelMessages(messages),
+    stopWhen: stepCountIs(5),
+    tools: {
+      web_search: openai.tools.webSearch({
+        externalWebAccess: true,
+        searchContextSize: "medium",
+      }),
+    },
+  });
+
+  result.pipeUIMessageStreamToResponse(response);
+});
+```
+
+The important part is the `tools.web_search` registration. Once this is present, the model can call web search during generation.
+
+## How web search works
+
+At runtime, the model decides when to call `web_search` based on your prompt and the user question.
+
+Typical flow:
+
+1. User asks a question that likely needs current information.
+2. Model triggers `web_search`.
+3. Tool returns web context to the model.
+4. Model uses that context to generate a final answer.
+5. The full response is streamed back to Open Chat Widget.
+
+Use system prompt instructions to control when search is used. For example, you can require search for time-sensitive topics and avoid search for evergreen topics.
+
+## Pricing for web search
+
+Web search usually adds cost in two ways:
+
+1. Model token usage:
+The request still consumes input/output tokens.
+2. Tool usage:
+Provider-specific web search calls may have additional per-call or usage-based charges.
+
+Check your model provider pricing page for exact rates and web search pricing details. Costs can change over time.
+
+## What this looks like in Open Chat Widget
+
+Open Chat Widget renders tool activity and reasoning as streamed message parts:
+
+- When the model is thinking, users see a collapsible reasoning panel.
+- When a tool runs, users see a tool card (for example `Web Search`), with status like running, complete, denied, or failed.
+- If a tool requires approval, the widget shows Approve/Reject controls and resumes automatically after the response.
+
+This behavior is built in. You only need to stream AI SDK UI messages from your backend.
+
+### Example
+
+![Web search example in Open Chat Widget](/images/web-search-example.png)
