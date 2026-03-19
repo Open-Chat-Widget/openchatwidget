@@ -18,24 +18,24 @@
   </p>
 </div>
 
-Open Chat Widget lets you drop in a AI chat client right in your product. You just build the backend agent, Open Chat Widget handles the front end UI and plumbing for you. 
+Open Chat Widget is an embeddable AI chat client for your product. You build the backend agent, and Open Chat Widget handles the frontend UI and chat plumbing.
+
+- Works with all major model providers (OpenAI, Anthropic, Gemini, Ollama, Mistral, OpenRouter, and more)
+- Streaming UI with reasoning and tool-call rendering
+- Attachments support (images, PDFs, SVGs, model-dependent)
+- MCP support, web search, and human-in-the-loop tool approvals
 
 ### Why Open Chat Widget
 
-You came here because you want a working chat bot, not a new framework to learn. Open Chat Widget gives you a prod ready chat out of the box. We're opinionated about design and UX so you can skip the decisions and focus on what matters: building your agent. 
+You came here because you want a working chat bot, not another framework to learn. We give you feature-rich chat out of the box:
 
-- **Plug and play** - A single component you drop in to your website. You get access to feature rich AI chat with text streaming, web search, tool use, etc. out of the box. Set up is a few lines of code. 
-
-- **Works with AI SDK** — Build custom agents with [Vercel AI SDK](https://ai-sdk.dev/). Use any LLM model and create custom workflows. Works directly with existing AI-SDK endpoints. 
-
-- **Framework-agnostic** — Plugs in to any web framework or website platform: React, Next.js, Vue, WordPress, Shopify, Wix. 
-
-- **Support for MCP** - Compatible with MCP servers. Connect to MCP servers and use its tools. Support for MCP apps (MCP-UI) coming soon. 
-
-- **Open source** — MIT licensed. Free forever. You own your data and infrastructure. 
+- **Plug and play** - Add one component and connect your streaming endpoint.
+- **Works with AI SDK** — Build custom agents with [Vercel AI SDK](https://ai-sdk.dev/) and plug them in directly.
+- **Framework-agnostic** — Use it with React, Next.js, Vue, WordPress, Shopify, Wix, and more.
+- **Open source** — MIT licensed. You own your data and infrastructure.
 
 <div align="center">
-  <img src="public/product-demo-2.png" alt="Open Chat Widget product demo — product identification and customer service chat" width="100%" />
+  <img src="public/demo-gif.gif" alt="Open Chat Widget product demo — product identification and customer service chat" width="100%" />
 </div> 
 
 ## 🚀 Quick Start - React / Next.js
