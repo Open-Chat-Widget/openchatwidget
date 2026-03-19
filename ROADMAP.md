@@ -3,22 +3,22 @@ This is the roadmap for Open Chat Widget. If you're looking to contribute, pleas
 
 ## General
 - [x] Initialize the project. Create bare bones v0.1.0 of the SDK. Set up Discord community, website, GitHub repo and docs. 
-- [ ] Set up basic repo health (clean up CONTRIBUTING.md, ROADMAP.md). Set up merging rules. 
+- [x] Set up basic repo health (clean up CONTRIBUTING.md, ROADMAP.md). Set up merging rules. 
 - [ ] Create a web search agent example 
 - [ ] Create a RAG / documentation search agent example 
 
 ## Widget SDK
 
 - [ ] Add voice support. Speech to text for inputs. 
-- [ ] Support for uploading attachments 
+- [x] Support for uploading attachments 
 - [ ] Save chat in browser local storage
 - [ ] Chat sessions? Being able to create and save new chat threads. 
 - [ ] Edit / re-run messages 
-- [ ] Chain of thought and reasoning model support 
-- [ ] Tool calling with human in the loop approvals 
+- [x] Chain of thought and reasoning model support 
+- [x] Tool calling with human in the loop approvals 
 
 ## MCP 
-- [ ] Support for basic MCP servers on the agent side 
+- [x] Support for basic MCP servers on the agent side 
 - [ ] Support for MCP apps (MCP-UI)? 
 
 ## Misc 
