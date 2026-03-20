@@ -1,9 +1,10 @@
 ---
 title: "Next.js Landing Page"
-description: "Use the Next.js App Router example that powers the Open Chat Widget landing page."
+description: "Use the Next.js App Router example with gpt-5-mini and a serverless chat route."
 ---
 
 This example wires `@openchatwidget/sdk` into a Next.js App Router project.
+The `POST /api/chat` route uses `gpt-5-mini` and does not enable web search.
 
 It includes:
 
@@ -17,27 +18,26 @@ It includes:
 - `examples/nextjs-landing-page/app/api/chat/route.ts`
 - `examples/nextjs-landing-page/src/landing/pages/LandingPage.tsx`
 
-## Getting started
+## Run it
 
-Install dependencies:
+1. Install dependencies:
 
 ```bash
+cd /Users/matt8p/Desktop/openchatwidget/examples/nextjs-landing-page
 npm install
 ```
 
-Create a local env file:
+2. Configure environment variables:
 
 ```bash
 cp .env.example .env.local
 ```
 
-Add your OpenAI API key:
-
 ```env
 OPENAI_API_KEY=your_key_here
 ```
 
-Start the dev server:
+3. Start the dev server:
 
 ```bash
 npm run dev

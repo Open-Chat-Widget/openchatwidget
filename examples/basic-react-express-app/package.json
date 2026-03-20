@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@openchatwidget/sdk": "^0.1.1",
+    "@openchatwidget/sdk": "^0.1.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",

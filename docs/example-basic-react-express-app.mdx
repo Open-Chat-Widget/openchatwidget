@@ -1,9 +1,10 @@
 ---
 title: "React + Express Example"
-description: "Use the Vite and Express example when you want the frontend and agent server split apart."
+description: "Run the Vite + Express example with gpt-5-mini and native OpenAI web search."
 ---
 
-This folder contains a minimal Vite + Express app wired to `OpenChatWidget`.
+This example runs Open Chat Widget in a Vite frontend with an Express backend.
+The backend uses `gpt-5-mini` and enables OpenAI's native `web_search` tool.
 
 ## Key files
 
@@ -20,10 +21,14 @@ cd /Users/matt8p/Desktop/openchatwidget/examples/basic-react-express-app
 npm install
 ```
 
-2. Add env vars for the Express agent:
+2. Configure environment variables:
 
 ```bash
 cp .env.example .env
+```
+
+```env
+OPENAI_API_KEY=your_key_here
 ```
 
 3. Start both the frontend and backend:
@@ -32,8 +37,8 @@ cp .env.example .env
 npm run dev
 ```
 
-Frontend: `http://localhost:5173`  
-API: `http://localhost:8787/api/chat`
+- Frontend: `http://localhost:5173`
+- API: `http://localhost:8787/api/chat`
 
 The landing page mounts `<OpenChatWidget />`, and the widget streams responses from the Express `POST /api/chat` endpoint.
 
