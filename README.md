@@ -35,7 +35,7 @@ You came here because you want a working chat bot, not another framework to lear
 - **Open source** — MIT licensed. You own your data and infrastructure.
 
 <div align="center">
-  <img src="public/demo-gif.gif" alt="Open Chat Widget product demo — product identification and customer service chat" width="100%" />
+  <img src="public/demo-gif-loop.gif" alt="Open Chat Widget product demo — product identification and customer service chat" width="100%" />
 </div> 
 
 ## 🚀 Quick Start - React / Next.js
