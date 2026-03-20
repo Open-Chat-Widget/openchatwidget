@@ -1,6 +1,7 @@
 # Next.js Landing Page Example
 
 This example wires `@openchatwidget/sdk` into a Next.js App Router project.
+The chat route uses `gpt-5-mini` without web search.
 
 It includes:
 
@@ -8,13 +9,14 @@ It includes:
 - a client wrapper for the widget
 - a serverless `POST /api/chat` route handler
 
-## Getting started
-
-Install dependencies:
+## Install
 
 ```bash
+cd /Users/matt8p/Desktop/openchatwidget/examples/nextjs-landing-page
 npm install
 ```
+
+## Configure environment variables
 
 Create a local env file:
 
@@ -22,13 +24,13 @@ Create a local env file:
 cp .env.example .env.local
 ```
 
-Add your OpenAI API key:
+Set your OpenAI API key in `.env.local`:
 
 ```env
 OPENAI_API_KEY=your_key_here
 ```
 
-Start the dev server:
+## Run locally
 
 ```bash
 npm run dev

@@ -1,30 +1,36 @@
-# OpenChatWidget Examples
+# React + Express Example
 
-This folder contains a minimal Vite + Express app wired to `OpenChatWidget`.
+This example runs Open Chat Widget in a Vite frontend with an Express backend.
+The backend uses `gpt-5-mini` and enables the native OpenAI `web_search` tool.
 
-## Run it
-
-1. Install dependencies:
+## Install
 
 ```bash
-cd /Users/matt8p/Desktop/openchatwidget/examples/basic-vite-express-app
+cd /Users/matt8p/Desktop/openchatwidget/examples/basic-react-express-app
 npm install
 ```
 
-2. Add env vars for the Express agent:
+## Configure environment variables
+
+Create a local env file:
 
 ```bash
 cp .env.example .env
 ```
 
-3. Start both the frontend and backend:
+Set your OpenAI API key in `.env`:
+
+```env
+OPENAI_API_KEY=your_key_here
+```
+
+## Run locally
 
 ```bash
 npm run dev
 ```
 
-Frontend: `http://localhost:5173`  
-API: `http://localhost:8787/api/chat`
+- Frontend: `http://localhost:5173`
+- API: `http://localhost:8787/api/chat`
 
-The landing page mounts `<OpenChatWidget />`, and the widget streams responses
-from the Express `POST /api/chat` endpoint.
+The widget sends chat requests to the Express `POST /api/chat` endpoint and streams responses back to the UI.
