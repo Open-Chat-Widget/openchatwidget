@@ -1,0 +1,28 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1A2A6C"/>
+      <stop offset="0.55" stop-color="#2D1B69"/>
+      <stop offset="1" stop-color="#4A148C"/>
+    </linearGradient>
+    <linearGradient id="dragon" x1="18" y1="18" x2="50" y2="50" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7CFFCB"/>
+      <stop offset="1" stop-color="#35E0A1"/>
+    </linearGradient>
+    <linearGradient id="flame" x1="44" y1="35" x2="56" y2="42" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD166"/>
+      <stop offset="1" stop-color="#FF5E3A"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="4" y="4" width="56" height="56" rx="16" fill="url(#bg)"/>
+
+  <path d="M18 39C18 31 23 24 31 22C31 19 30 17 27 15C33 15 38 18 40 24C44 24 48 27 49 31C46 30 43 31 41 33C39 35 36 36 33 36H28L24 42H18V39Z" fill="url(#dragon)"/>
+  <path d="M28 26L33 20L36 26" stroke="#B8FFE6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="37.5" cy="29.5" r="1.8" fill="#132A3A"/>
+  <circle cx="38.1" cy="28.9" r="0.45" fill="#FFFFFF"/>
+  <path d="M35 33.5C36.4 34.6 38.6 34.6 40 33.5" stroke="#1B3C4D" stroke-width="1.8" stroke-linecap="round"/>
+
+  <path d="M42 36C45.5 35.4 49 36.4 51.5 39C49 40.2 46.5 40.7 44 40.5" fill="url(#flame)"/>
+  <path d="M44 36.8C46 36.5 48.1 37.1 49.7 38.6C48.1 39.4 46.4 39.7 44.7 39.6" fill="#FFF1A8"/>
+</svg>
