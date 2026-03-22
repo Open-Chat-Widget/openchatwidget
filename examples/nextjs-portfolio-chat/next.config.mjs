@@ -1,8 +1,17 @@
 import { withContentCollections } from "@content-collections/next";
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const rootDir = dirname(fileURLToPath(import.meta.url));
+const workspaceRoot = dirname(dirname(rootDir));
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  transpilePackages: ["@openchatwidget/sdk"],
+  turbopack: {
+    root: workspaceRoot,
+  },
   async headers() {
     return [
       {

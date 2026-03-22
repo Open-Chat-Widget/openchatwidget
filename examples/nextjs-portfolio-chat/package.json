@@ -13,6 +13,8 @@
     "lint:fix": "eslint --fix"
   },
   "dependencies": {
+    "@openchatwidget/sdk": "^0.1.2",
+    "@openrouter/ai-sdk-provider": "^2.3.1",
     "@content-collections/mdx": "^0.2.2",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-avatar": "^1.1.11",
@@ -24,6 +26,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "content-collections": "^0.2.1",
+    "ai": "^6.0.97",
     "lucide-react": "^0.562.0",
     "motion": "^12.23.27",
     "next": "16.1.1",
