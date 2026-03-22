@@ -4,7 +4,7 @@ description: "Use the Next.js App Router example with gpt-5-mini and a serverles
 ---
 
 This example wires `@openchatwidget/sdk` into a Next.js App Router project.
-The `POST /api/chat` route uses `gpt-5-mini` and does not enable web search.
+The `POST /api/chat` route uses OpenRouter with `openai/gpt-5-mini:online` (web search enabled).
 
 It includes:
 
@@ -34,7 +34,7 @@ cp .env.example .env.local
 ```
 
 ```env
-OPENAI_API_KEY=your_key_here
+OPENROUTER_API_KEY=your_key_here
 ```
 
 3. Start the dev server:
