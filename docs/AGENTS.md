@@ -10,9 +10,9 @@
 - Site configuration lives in `docs/docs.json`
 - The primary getting-started flow is `index`, `installation`, and `create-an-agent`
 - The building-agents section currently contains `agent-use-cases` and `compatibility`
-- The examples section currently contains `examples`, `example-nextjs-landing-page`, and `example-basic-react-express-app`
+- The examples section currently contains `examples`, `example-nextjs-landing-page`, `example-nextjs-portfolio-chat`, and `example-basic-react-express-app`
 - The public package name is `@openchatwidget/sdk`
-- The main example apps live in `examples/basic-react-express-app` and `examples/nextjs-landing-page`
+- The main example apps live in `examples/basic-react-express-app`, `examples/nextjs-landing-page`, and `examples/nextjs-portfolio-chat`
 
 ## Terminology
 

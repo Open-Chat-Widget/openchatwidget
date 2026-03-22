@@ -3,7 +3,7 @@ title: "Examples Overview"
 description: "Browse dedicated docs pages for each Open Chat Widget example repo."
 ---
 
-Open Chat Widget ships with two example repos. Each one has its own dedicated docs page with install, environment variable setup, and local run instructions.
+Open Chat Widget ships with three example repos. Each one has its own dedicated docs page with install, environment variable setup, and local run instructions.
 
 <Frame>
   <img
@@ -27,6 +27,20 @@ Open Chat Widget ships with two example repos. Each one has its own dedicated do
 - Repo folder: `examples/nextjs-landing-page`
 - Docs page: `/example-nextjs-landing-page`
 
+## Next.js portfolio chat
+
+<Card
+  title="Next.js portfolio chat"
+  icon="user"
+  href="/example-nextjs-portfolio-chat"
+  horizontal
+>
+  Next.js App Router portfolio site with the widget mounted in the app layout and a `POST /api/chat` route that answers from resume context.
+</Card>
+
+- Repo folder: `examples/nextjs-portfolio-chat`
+- Docs page: `/example-nextjs-portfolio-chat`
+
 ## React + Express example
 
 <Card
@@ -46,6 +60,9 @@ Open Chat Widget ships with two example repos. Each one has its own dedicated do
 <CardGroup cols={2}>
   <Card title="Use the Next.js example" icon="code">
     Start here if your app already uses App Router and you want the widget and route handler in one project.
+  </Card>
+  <Card title="Use the portfolio example" icon="user">
+    Start here if you want an App Router portfolio starter where your agent answers questions about you from structured resume data.
   </Card>
   <Card title="Use the Express example" icon="server">
     Start here if you want a standalone backend or you need to keep the agent outside the frontend app.
