@@ -115,6 +115,7 @@ We've included some examples of Open Chat Widget installed in web app projects a
 
 - [`examples/vite-express-app`](./examples/vite-express-app): Open Chat Widget installed in a React + Vite frontend with an Express backend. Supports attachments and web search. 
 - [`examples/nextjs-landing-page`](./examples/nextjs-landing-page): Open Chat Widget installed on a Next.js app with API Routes. This is the live landing page too. 
+- [`examples/nextjs-portfolio-chat`](./examples/nextjs-portfolio-chat): Open Chat Widget installed in a Next.js portfolio app with a resume-grounded `/api/chat` route for "ask me anything" style questions.
 
 ## [Roadmap](./ROADMAP.md)
 

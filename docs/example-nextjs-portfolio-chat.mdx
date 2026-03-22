@@ -1,0 +1,61 @@
+---
+title: "Next.js Portfolio Chat"
+description: "Use the Next.js portfolio example with a resume-grounded chat route."
+---
+
+This example wires `@openchatwidget/sdk` into a Next.js App Router portfolio site.
+The `POST /api/chat` route uses OpenRouter with `openai/gpt-5-mini:online` and includes resume context from `src/data/resume.tsx` so users can ask questions about you.
+
+<Frame>
+  <img
+    src="/images/portfolio-chat.png"
+    alt="Open Chat Widget on the Next.js portfolio chat example."
+    style={{ borderRadius: "0.75rem" }}
+  />
+</Frame>
+
+It includes:
+
+- a portfolio page with `OpenChatWidget`
+- a client wrapper for the widget
+- a serverless `POST /api/chat` route handler grounded on resume data
+
+## Key files
+
+- `examples/nextjs-portfolio-chat/src/app/widget-client.tsx`
+- `examples/nextjs-portfolio-chat/src/app/api/chat/route.ts`
+- `examples/nextjs-portfolio-chat/src/data/resume.tsx`
+
+## Run it
+
+1. Install dependencies:
+
+```bash
+cd /Users/matt8p/Desktop/openchatwidget/examples/nextjs-portfolio-chat
+pnpm install
+```
+
+2. Configure environment variables:
+
+```env
+OPENROUTER_API_KEY=your_key_here
+```
+
+3. Start the dev server:
+
+```bash
+pnpm dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+The widget is mounted in the app layout and sends requests to `/api/chat`.
+
+<Card
+  title="View repo folder"
+  icon="github"
+  href="https://github.com/Open-Chat-Widget/openchatwidget/tree/main/examples/nextjs-portfolio-chat"
+  horizontal
+>
+  Open the full example source on GitHub.
+</Card>
