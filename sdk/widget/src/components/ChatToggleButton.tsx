@@ -10,12 +10,12 @@ type OpenChatWidgetToggleProps = {
 };
 
 const DEFAULT_LOGO_SRC = HELPFUL_CHAT_LOGO_DATA_URI;
-const BUTTON_SIZE_PX = 68;
-const ICON_SIZE_PX = 54;
-const CLOSE_ICON_SIZE_PX = 22;
-const MOBILE_BUTTON_SIZE_PX = 56;
-const MOBILE_ICON_SIZE_PX = 42;
-const MOBILE_CLOSE_ICON_SIZE_PX = 18;
+const BUTTON_SIZE_PX = 62;
+const ICON_SIZE_PX = 48;
+const CLOSE_ICON_SIZE_PX = 20;
+const MOBILE_BUTTON_SIZE_PX = 46;
+const MOBILE_ICON_SIZE_PX = 32;
+const MOBILE_CLOSE_ICON_SIZE_PX = 16;
 
 function CloseIcon({ size }: { size: number }) {
   return (
@@ -56,7 +56,7 @@ export const ChatToggleButton = React.forwardRef<
   const closeIconSize = isMobile
     ? MOBILE_CLOSE_ICON_SIZE_PX
     : CLOSE_ICON_SIZE_PX;
-  const offset = isMobile ? "12px" : "16px";
+  const offset = isMobile ? "10px" : "16px";
   const hasUnread = !isOpen && unreadCount > 0;
   const unreadLabel = unreadCount > 99 ? "99+" : String(unreadCount);
 
@@ -91,10 +91,10 @@ export const ChatToggleButton = React.forwardRef<
             position: "absolute",
             top: isMobile ? "-2px" : "0px",
             right: isMobile ? "-2px" : "0px",
-            minWidth: isMobile ? "18px" : "20px",
-            height: isMobile ? "18px" : "20px",
+            minWidth: isMobile ? "16px" : "20px",
+            height: isMobile ? "16px" : "20px",
             borderRadius: "9999px",
-            padding: "0 5px",
+            padding: isMobile ? "0 4px" : "0 5px",
             background: "#ef4444",
             color: "#ffffff",
             fontSize: isMobile ? "10px" : "11px",
